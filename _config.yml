@@ -122,7 +122,7 @@ comments:
 
   ## Disqus
   disqus:
-    shortname: "blog-bs3l3gxwaf" # the Disqus shortname for the site
+    shortname: # the Disqus shortname for the site
 
   ## Gitalk
   # please refer to https://github.com/gitalk/gitalk for more info.

@@ -4,10 +4,17 @@
   }
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    @each $name, $value in $dark {
-      --#{$name}: #{$value};
-    }
+[data-theme="dark"] {
+  @each $name, $value in $dark {
+    --#{$name}: #{$value};
   }
 }
+
+
+// @media (prefers-color-scheme: dark) {
+//   :root {
+//     @each $name, $value in $dark {
+//       --#{$name}: #{$value};
+//     }
+//   }
+// }
