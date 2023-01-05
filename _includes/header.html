@@ -16,6 +16,7 @@
           {%- endif -%}
         </div>
         {%- if site.search.provider -%}
+          <button class="button button--secondary button--circle search-button" onclick="toggleTheme()"><i id="themeSwitch1" class="fas fa-moon"></i></button>
           <button class="button button--secondary button--circle search-button js-search-toggle"><i class="fas fa-search"></i></button>
         {%- endif -%}
       </div>
@@ -35,9 +36,9 @@
             {%- endif -%}
           {%- endfor -%}
           {%- if site.search.provider -%}
+            <li><button class="button button--secondary button--circle search-button" onclick="toggleTheme()"><i id="themeSwitch2" class="fas fa-moon"></i></button></li>
             <li><button class="button button--secondary button--circle search-button js-search-toggle"><i class="fas fa-search"></i></button></li>
           {%- endif -%}
-          <li><button class="button button--secondary button--circle" onclick="toggleTheme()"><i class="fas fa-moon"></i></button></li>
         </ul>
       </nav>
       {%- endif -%}
