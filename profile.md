@@ -8,7 +8,15 @@ show_title: false
 
 ### Introduction
 
-A student who majors in physics.
+- A college student who majors in physics
+- An amateur programmer who is learning in many aspects
+- An otaku who likes animations, light novels and so on.
+- Maybe you can find more identities of me...
+
+### Experience
+
+- Bachelor: School of Physics, Xi'an Jiaotong University
+- Doctor: ...
 
 ### Programming Languages
 
@@ -22,7 +30,7 @@ A student who majors in physics.
   - ~~Mathematica~~
 - *Able*
   - Fortran
-  - JavaScript
+  - JavaScript (Vue 3)
   - C
 - *Used previously*
   - Pascal (FP)
