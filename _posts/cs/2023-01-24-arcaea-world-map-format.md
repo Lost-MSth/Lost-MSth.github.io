@@ -14,6 +14,8 @@ aside:
 
 目前还是用着JSON文件直接读取的办法，以后的事以后再说（
 
+<!--more-->
+
 {% highlight JSON linenos %}
 {
     "map_id": "test",  // Unique name of the map
