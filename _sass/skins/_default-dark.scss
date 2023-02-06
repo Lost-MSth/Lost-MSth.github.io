@@ -6,16 +6,23 @@
 
 /* stylelint-disable value-list-max-empty-lines, function-max-empty-lines */
 
+$main_color_1:     #75c7d2; // #ff9500 #9d9be3
+$main_color_2:     #05567a; // #ff006a
+$main_color_3:     #202020;
+
+$text_color_3:     rgba(#fff, .8);
+
+
 $dark: (
   // main colors
-  main-color-1:     #9d9be3,//#ff9500,
+  main-color-1:     $main_color_1,//#ff9500,
   text-color-1:     rgba(#fff, .8),
 
-  main-color-2:     #ff006a,//#ff006a,
+  main-color-2:     $main_color_2,//#ff006a,
   text-color-2:     rgba(#fff, .8),
 
-  main-color-3:     #202020,
-  text-color-3:     rgba(#fff, .8),
+  main-color-3:     $main_color_3,
+  text-color-3:     $text_color_3,
 
   main-color-theme-light: rgba(#000, .8),
   main-color-theme-dark:  rgba(#fff, .8),
@@ -44,7 +51,7 @@ $dark: (
 
   // page
   background-color: #121212,
-  select-color:     rgba(#ff9500, .5), // main-color-1
+  select-color:     rgba($main_color_1, .5), // main-color-1
 
   // border and shadow colors
   border-color:     mix(#fff, #121212, 20%), // background-color
@@ -53,20 +60,20 @@ $dark: (
   mask-color:       rgba(#000, .9),
 
   // header and footer colors
-  header-background: #202020, // main-color-3
-  header-text-color: rgba(#fff, .8), // text-color-3
+  header-background: $main_color_3, // main-color-3
+  header-text-color: $text_color_3, // text-color-3
 
-  footer-background: #202020, // main-color-3
-  footer-text-color: rgba(#fff, .8), // text-color-3
+  footer-background: $main_color_3, // main-color-3
+  footer-text-color: $text_color_3, // text-color-3
 
   // sidebar
-  sidebar-button-background-color: rgba(#202020, .75), // main-color-3
+  sidebar-button-background-color: rgba($main_color_3, .75), // main-color-3
 
   // tags
-  tag-button-background-color-1:   rgba(#ff9500, .4),  // main-color-1
-  tag-button-background-color-2:   rgba(#ff9500, .55), // main-color-1
-  tag-button-background-color-3:   rgba(#ff9500, .7),  // main-color-1
-  tag-button-background-color-4:   rgba(#ff9500, .9),  // main-color-1
+  tag-button-background-color-1:   rgba($main_color_1, .4),  // main-color-1
+  tag-button-background-color-2:   rgba($main_color_1, .55), // main-color-1
+  tag-button-background-color-3:   rgba($main_color_1, .7),  // main-color-1
+  tag-button-background-color-4:   rgba($main_color_1, .9),  // main-color-1
 
   // logo colors
   mail-color:       #0072c5,
