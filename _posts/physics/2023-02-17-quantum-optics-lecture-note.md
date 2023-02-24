@@ -1,15 +1,15 @@
 ---
-title: 量子光学与量子信息课程笔记
+title: 《量子光学与量子信息》课程笔记
 key: quantum_optics_lecture_note
 tags: ["physics"]
-modify_date: "2023-02-20 18:00:00"
+modify_date: "2023-02-21 17:30:00"
 aside:
     toc: true
 ---
 
-> 课程复习笔记，对着PPT和书[^1]整理的，课程参考书是那本著名的量子光学[^2]  
-> 数位板手写效果不好，想起来blog利用Mathjax可以放公式，故试试  
-> 公式中可能会省略算符的hat
+> 课程复习笔记，对着 PPT 和书[^1]整理的，课程参考书是那本著名的量子光学[^2]  
+> 数位板手写效果不好，想起来 blog 利用 Mathjax 可以放公式，故试试  
+> 公式中可能会省略算符的 hat
 
 <!--more-->
 
@@ -25,13 +25,13 @@ aside:
 - 1917年，Einstein，自发和受激辐射的唯象理论
 - 1927年，Dirac，辐射场量子化
   > 此时，量子力学理论已经建立
-- 1940~1960年，Schwinger和Feynman，量子电动力学QED
-- 1950~1960年，Hanbury-Brown和Twiss实验，强度干涉法
+- 1940~1960年，Schwinger 和 Feynman，量子电动力学 QED
+- 1950~1960年，Hanbury-Brown 和 Twiss实验，强度干涉法
 - 1963年，Glauber，光学相干理论
   > 上面两个是量子光学的里程碑
 - 1960~1970年，激光量子理论，原子和场相互作用理论
 - 1970~1990年，Ashkin, C. Cohen Tannoudji, and S.Chu，冷原子激光捕获和冷却
-- 1990~2000年，Cornell, Weimann, and Ketterle，玻色爱因斯坦凝聚态物质BEC
+- 1990~2000年，Cornell, Weimann, and Ketterle，玻色爱因斯坦凝聚态物质 BEC
 
 ### 量子信息学
 
@@ -58,27 +58,27 @@ aside:
 #### 产生背景
 
 - 经典计算机不能模拟粒子数大的量子系统
-- Moore定律
+- Moore 定律
 - 没有绝对安全的通信
 - 量子非局域性的本质等量子理论的不完全理解
 
 #### 发展
 
-- 1980年，Benioff最早用量子力学来描述可逆计算机，但是没有利用量子力学的本质特性
-- 1982、1985年，Richard Feynman最早提出量子计算的概念
-- 1985年，David Deutsch，量子Turing机模型
+- 1980年，Benioff 最早用量子力学来描述可逆计算机，但是没有利用量子力学的本质特性
+- 1982、1985年，Richard Feynman 最早提出量子计算的概念
+- 1985年，David Deutsch，量子 Turing 机模型
 - 1989年，量子计算机的量子网络模型，量子计算机的通用逻辑门
-- 1984年，Charles Bennett和Gilles Brassard提出利用极化光子非正交态建立量子密钥的方案，即BB84方案
-- 1992、1993年，Charles Bennett提出量子超密编码，量子隐态传输方案
-- 1992年，IBM-Montreal小组首次进行BB84原型实验
-- 1994年，Peter Shor发现了分解大数质因子的量子算法
+- 1984年，Charles Bennett 和 Gilles Brassard 提出利用极化光子非正交态建立量子密钥的方案，即 BB84 方案
+- 1992、1993年，Charles Bennett 提出量子超密编码，量子隐态传输方案
+- 1992年，IBM-Montreal 小组首次进行 BB84 原型实验
+- 1994年，Peter Shor 发现了分解大数质因子的量子算法
 - 1995~1996年，Peter Shor，Andrew Steane，量子纠错和容错计算方法
-- 1995年，Cirac和Zoller提出离子阱量子计算机方案，同年实现离子阱方案CNOT门计算
-  - 2003年，奥地利Innsbruck大学首次实现了Cirac和Zoller提出的CNOT门
-- 1996年，Grover随机数据库搜索的量子算法
-- 1997年，提出利用核磁共振NMR技术实现量子计算的思想
-  - 2001年，斯坦福大学用NMR量子计算机成功分解了数字15的质因子
-- 1996、1997年，奥地利Innsbruck大学的研究小组，实验实现了量子超密编码和量子隐形传态
+- 1995年，Cirac 和 Zoller 提出离子阱量子计算机方案，同年实现离子阱方案 CNOT 门计算
+  - 2003年，奥地利 Innsbruck 大学首次实现了 Cirac 和 Zoller 提出的 CNOT 门
+- 1996年，Grover 随机数据库搜索的量子算法
+- 1997年，提出利用核磁共振 NMR 技术实现量子计算的思想
+  - 2001年，斯坦福大学用 NMR 量子计算机成功分解了数字15的质因子
+- 1996、1997年，奥地利 Innsbruck 大学的研究小组，实验实现了量子超密编码和量子隐形传态
 
 ***
 
@@ -90,9 +90,9 @@ aside:
 
 坐标与动量的不确定性关系：$\Delta x \cdot \Delta p_x \geq \frac{\hbar}{2}$
 
-1. 量子力学态由Hilbert空间中的矢量描写
+1. 量子力学态由 Hilbert 空间中的矢量描写
 2. 叠加原理
-3. 每一个力学量用一个线性厄米算子表示，算子的所有本征态构成系统所在Hilbert空间的一组正交完备基
+3. 每一个力学量用一个线性厄米算子表示，算子的所有本征态构成系统所在 Hilbert 空间的一组正交完备基
 
 线性空间
 : 全体元素构成可交换加法群+对数乘满足分配率和结合律
@@ -100,7 +100,7 @@ aside:
 内积空间
 : 线性空间+定义内积
 
-Hilbert空间
+Hilbert 空间
 : 线性、完备、复内积空间
 
 ### 纯态和混合态
@@ -111,11 +111,11 @@ Hilbert空间
 
 对于每个纯态都可定义一个线性算子：投影算子$\hat{\rho} = \ketbra{\alpha}$，具有以下性质：
 
-1. 厄米性$\hat{\rho}^\dagger = \hat{\rho}$
-2. 正定性$\ev{\hat{\rho}}{\Phi} \geq 0$
-3. 幺迹性$\Tr{\hat{\rho}} = 1$（相对任意正交归一基）
-4. 幂等性$\hat{\rho}^2 = \hat{\rho}$
-5. 任意力学量算子$\hat{F}$在态$\ket{\Psi}$的平均值可用投影算子表示为$\bar{F} = \ev{\hat{F}}{\Psi} = \Tr(\hat{\rho} \hat{F})$
+1. 厄米性 $\hat{\rho}^\dagger = \hat{\rho}$
+2. 正定性 $\ev{\hat{\rho}}{\Phi} \geq 0$
+3. 幺迹性 $\Tr{\hat{\rho}} = 1$（相对任意正交归一基）
+4. 幂等性 $\hat{\rho}^2 = \hat{\rho}$
+5. 任意力学量算子 $\hat{F}$ 在态 $\ket{\Psi}$ 的平均值可用投影算子表示为 $\bar{F} = \ev{\hat{F}}{\Psi} = \Tr(\hat{\rho} \hat{F})$
 
 #### 混合态
 
@@ -123,10 +123,10 @@ Hilbert空间
 
 密度算子：$\hat{\rho} = \sum_{i=1}^{n} \ket{\Psi_i} p_i \bra{\Psi_i}$，具有以下性质：
 
-1. 厄米性，注意到如果$\{\Psi_i\}$满足正交归一化条件，那么它就是完备本征函数系，而$\{p_i\}$就是本征值谱
+1. 厄米性，注意到如果 $\{\Psi_i\}$ 满足正交归一化条件，那么它就是完备本征函数系，而 $\{p_i\}$ 就是本征值谱
 2. 正定性
 3. 幺迹性
-4. 任意力学量算子$\hat{F}$在混态中的平均值可用密度算子表示为$\bar{F} = \sum_{i=1}^{n} p_i \ev{\hat{F}}{\Psi_i} = \Tr(\hat{\rho} \hat{F})$
+4. 任意力学量算子 $\hat{F}$ 在混态中的平均值可用密度算子表示为 $\bar{F} = \sum_{i=1}^{n} p_i \ev{\hat{F}}{\Psi_i} = \Tr(\hat{\rho} \hat{F})$
 
 密度矩阵
 : 纯态的投影算子/混态的密度算子在某组基下的矩阵，**密度矩阵的秩为1当且仅当是纯态**
@@ -137,11 +137,11 @@ $$
 \hat{\rho} = \sum_{i=1}^{n} p_i \ketbra{\Psi_i} = \sum_{j=1}^{n} \lambda_j \ketbra{\phi_i}
 $$
 
-设$m > n$则有
+设 $m > n$ 则有
 $$
-\sqrt{p_i} \ket{\Psi_i} = \sum_{j=1}^{m} U_{ij} \sqrt{\lambda_j} \ket{phi_j}, \  i = 1, 2, \cdots, m
+\sqrt{p_i} \ket{\Psi_i} = \sum_{j=1}^{m} U_{ij} \sqrt{\lambda_j} \ket{\phi_j}, \  i = 1, 2, \cdots, m
 $$
-其中，$U$是一个m阶幺正方阵
+其中，$U$ 是一个m阶幺正方阵
 
 1. 这里的幺正变换不是基矢到基矢的变换，因为幺正变换作用在一组非归一的态上了
 2. 变换前后幺正矩阵本身不变
@@ -151,11 +151,11 @@ $$
 
 ### 量子不可克隆定理 No-Cloning Theorem
 
-克隆Cloning
+克隆 Cloning
 : 不改变原来的量子态，在新系统中产生一个完全相同的量子态
 
-1. 如果$\ket{\alpha}$和$\ket{\beta}$是两个不同的非正交态，不存在一个物理过程可以做出两者的完全拷贝，但能以一定几率克隆
-2. 假设$\ket{\alpha}$是一个**未知**量子态，不存在一个物理过程能完全拷贝它
+1. 如果 $\ket{\alpha}$ 和 $\ket{\beta}$ 是两个不同的非正交态，不存在一个物理过程可以做出两者的完全拷贝，但能以一定几率克隆
+2. 假设 $\ket{\alpha}$ 是一个**未知**量子态，不存在一个物理过程能完全拷贝它
 3. 要从非正交量子态中获取信息，而不扰动这些态是不可能的
 
 > 上述证明不难，全是取两个任意态，用同一幺正变换作用在各个态和其环境上，其中一个取厄米共轭后拼起来，反证即可
@@ -168,7 +168,7 @@ $$
 
 #### Mode Expansion
 
-对自由电磁场波动方程$$\laplacian{\vb*{E}} - \frac{1}{c^2} \pdv[2]{\vb*{E}}{t} = 0$$，在一个盒子里做模式展开有
+对自由电磁场波动方程 $$\laplacian{\vb*{E}} - \frac{1}{c^2} \pdv[2]{\vb*{E}}{t} = 0$$，在一个盒子里做模式展开有
 
 $$
 E_x(z, t) = \sum_j A_j q_j(t) \sin(k_j z), \ A_j = \sqrt{\frac{2 v_j^2 m_j}{V \varepsilon_0}}, \ v_j = c k_j
@@ -246,9 +246,11 @@ $$
 
 单模线性极化场算符：$$E(\vb*{r}, t) = \varepsilon a \ee^{- \ii \nu t + \ii \vb*{k} \vdot \vb*{r}} + h.c.$$
 
+注意有 $\ev{E}{n} = 0$ 和 $\ev{E^2}{n} = 2 \varepsilon^2 \qty(n + \frac{1}{2})$，这说明真空非空
+
 ### 相干态
 
-> Baker-Hausdorff公式：
+> Baker-Hausdorff 公式：
 >
 > $$
 > \ee^{A} B \ee^{-A} = B + \comm{A}{B} + \frac{1}{2!} \comm{A}{\comm{A}{B}} + \cdots
@@ -289,7 +291,7 @@ $$
 \end{aligned}
 $$
 
-1. 相干态光子数满足Poisson分布
+1. 相干态光子数满足 Poisson 分布
 2. 不同相干态之间不正交，但所有相干态的集合是超完备的
 3. 相干态满足最小不确定关系  
 在$\alpha$复平面内，相干态的起伏可用两个厄米算符$X_1 = \qty(a + a^\dagger)/2$和$X_2 = \qty(a - a^\dagger) / (2 \ii)$来刻画，有对易关系$\comm{X_1}{X_2} = \ii / 2$，易知$\qty(\Delta X_1)^2 = \qty(\Delta X_2)^2 = 1 / 4$
@@ -411,7 +413,7 @@ $$
 g^{(2)}(X_1, X_2, X_2, X_1) = \frac{\langle E^{(-)}(X_1) E^{(-)}(X_2) E^{(+)}(X_2) E^{(+)}(X_1) \rangle}{\langle E^{(-)}(X_1) E^{(+)}(X_1) \rangle \langle E^{(-)}(X_2) E^{(+)}(X_2) \rangle}
 $$
 
-对于单模情况，在空间固定位置$$\vb*{r}$$处，相干度可以化简为：
+对于单模情况，在空间固定位置 $$\vb*{r}$$ 处，相干度可以化简为：
 
 $$
 g^{(1)}(\tau) = \frac{\langle a^\dagger(t + \tau) a(t) \rangle}{\langle a^\dagger a \rangle}
@@ -423,7 +425,7 @@ $$
 
 ### 一阶相干度与杨氏双缝干涉
 
-场强$$E^{(+)}(\vb*{r}, t) = u_1 E^{(+)}(\vb*{r_1}, t - t_1) + u_2 E^{(+)}(\vb*{r_2}, t - t_2)$$
+场强 $$E^{(+)}(\vb*{r}, t) = u_1 E^{(+)}(\vb*{r_1}, t - t_1) + u_2 E^{(+)}(\vb*{r_2}, t - t_2)$$
 
 平均光强：
 
@@ -440,9 +442,22 @@ $$
 U = \frac{2\sqrt{\expval{I^{(1)}(\vb*{r})}\expval{I^{(2)}(\vb*{r})}}}{\expval{I^{(1)}(\vb*{r})} + \expval{I^{(2)}(\vb*{r})}} \abs{g^{(1)}(\vb*{r_1}, t_1; \vb*{r_2}, t_2)}
 $$
 
-### 二阶相干度和Hanbury Brown-Twiss实验
+### 二阶相干度和 Hanbury Brown-Twiss 实验
+
+1. $$g^{(2)}(\tau) \leq g^{(2)}(0)$$ 时，光子群聚，热相干光
+2. $$g^{(2)}(\tau) > g^{(2)}(0)$$ 时，光子反群聚
+
+不同的光子分布
+
+1. $$g^{(2)}(0) < 1$$ 时，亚 Poissonian 分布，比如粒子数态
+2. $$g^{(2)}(0) = 1$$ 时，Poissonian 分布，比如相干态
+3. $$g^{(2)}(0) > 1$$ 时，超 Poissonian 分布，比如热光场
 
 > 下略，反正跟二阶相干度有关就完事了（
+
+### Hong-Ou-Mandel 干涉仪
+
+> 压缩光场的平均零拍测量什么的……
 
 ***
 
@@ -482,7 +497,7 @@ H_0 = \hbar \omega_{a} \ketbra{a} + \hbar \omega_{b} \ketbra{b}
 $$
 
 $$
-H_1 = - e x E(t) = - \qty(d_{ab} \ket{a}\bra{b} + d_{ab}^* \ket{b} \bra{a}) E(t)
+H_1 = - e x E(t) = - \qty(d_{ab} \ketbra{a}{b} + d_{ab}^* \ketbra{b}{a}) E(t)
 $$
 
 上面两式用完备性基$\ketbra{a} + \ketbra{b} = 1$往里面插一下就自然得出，其中$d_{ab} = e \mel{a}{x}{b} = \abs{d_{ab}} \ee^{\ii \phi}$，并假设电场线性极化方向相同$$\vb*{E}(t) = \varepsilon \cos(\nu t) \vb*{x}$$
@@ -520,7 +535,7 @@ $$
 做电偶极近似，即认为电场就是 $$E{\vb*{r}_0}$$，系统哈密顿为（省略零点能）
 
 $$
-H = \sum_i E_i \ketbra{i} + \sum_{\vb*{k}} \hbar \nu_{\vb*{k}} a^\dagger_{\vb*{k}} a_{\vb*{k}} + \hbar \sum_{i, j} \sum_{\vb*{k}} \qty[ g^{ij}_k(\vb*{r}_0) a_{\vb*{k}} + {g^{ij}_k}^*(\vb*{r}_0) a^\dagger_{\vb*{k}} ] \ket{i} \bra{j}
+H = \sum_i E_i \ketbra{i} + \sum_{\vb*{k}} \hbar \nu_{\vb*{k}} a^\dagger_{\vb*{k}} a_{\vb*{k}} + \hbar \sum_{i, j} \sum_{\vb*{k}} \qty[ g^{ij}_k(\vb*{r}_0) a_{\vb*{k}} + {g^{ij}_k}^*(\vb*{r}_0) a^\dagger_{\vb*{k}} ] \ketbra{i}{j}
 $$
 
 $$
@@ -533,7 +548,7 @@ $$
 
 $$
 \begin{aligned}
-  H &= \frac{1}{2} \hbar \omega \qty(\ketbra{a} - \ketbra{b}) + \hbar \nu a^\dagger a + \hbar g \qty(a + a^\dagger) \qty(\ket{a}\bra{b} + \ket{b}\bra{a}) \\
+  H &= \frac{1}{2} \hbar \omega \qty(\ketbra{a} - \ketbra{b}) + \hbar \nu a^\dagger a + \hbar g \qty(a + a^\dagger) \qty(\ketbra{a}{b} + \ketbra{b}{a}) \\
   &= \frac{1}{2} \hbar \omega \sigma_z + \hbar \nu a^\dagger a + \hbar g \qty(a + a^\dagger) \qty(\sigma_{+} + \sigma_{-}) \\
   &= \frac{1}{2} \hbar \omega \sigma_z + \hbar \nu a^\dagger a + \hbar g \qty(a \sigma_{+} + a^\dagger \sigma_{-})
 \end{aligned}
@@ -604,3 +619,33 @@ Hadamard 门
 > 定理（Deutsch 1985）：任意一个 $d$ 维幺正变换 $U$，都可以分解为 $d(d-1)/2$ 个幺正变换的乘积，其中每一个仅作用在由两个基矢量张成的二维子空间上
 
 定理：两量子位控制相位反转门（控制 X 门、控制 Y 门或者控制 Z 门）可以取代控制非门构成通用逻辑门组
+
+### 量子密钥分发 QKD
+
+#### BB84 协议
+
+1. Alice 发送一串量子比特 Bob，对每一个量子比特，Alice 随机选择 $\ket{0}$ 或 $\ket{1}$，随机选择是否使用 Hadamard 门，这时 Bob 每次可能收到下面四种状态 $\ket{0}, \ \ket{1}, \ \ket{+}, \ \ket{-}$
+2. Bob 随机选择以 $\ket{0}, \ \ket{1}$ 或者 $\ket{+}, \ \ket{-}$ 为基测量收到的量子比特，并且在经典通道上宣布他测量使用的基
+3. Alice 告诉 Bob 哪些基是正确的
+4. 二者舍弃错误的基，正确的基对应的量子比特就组成密钥
+
+#### 安全性
+
+- QKD 协议的安全性不等于实际系统的安全性
+- 实际安全性已经相对完善
+- 设计“不依赖”于实际系统的 QKD 协议
+- 防御攻击手段是完善安全性的最优途径
+
+***
+
+## 作业题
+
+> 简单写些思路，题号都是按照量光[^2]上的
+
+- 1.5 没什么难度，暴力 Taylor 展开即可
+- 1.6 依旧是 Taylor 展开即可
+- 2.1 利用相干态和真空态的关系，求 $$\pdv{\alpha}(\ketbra{\alpha})$$ 即可
+- 2.5 死算题，利用压缩算符和位移算符对两个正交算符暴力展开，注意及时消掉产生湮灭算符带来的 $0$
+- 2.6 死算题，和上题没啥区别，就是变成了双模
+- 5.2 数学题，解微分方程组
+- 5.5 三能级问题，对着二能级问题抄一遍就好，注意做缓变近似和旋转波近似
