@@ -2,7 +2,7 @@
 title: Arcaea World Map Format
 key: arcaea_world_map_format
 tags: Arcaea
-modify_date: "2023-01-24 22:37:00"
+modify_date: "2023-03-03 19:30:00"
 aside:
     toc: true
 ---
@@ -33,6 +33,7 @@ aside:
     "require_value": 0,
     "require_localunlock_songid": "",
     "require_localunlock_challengeid": "",
+    "chain_info": {},
     "coordinate": "0,0",  // Location coordinates in the chapter
     "step_count": 12,  // Total steps (unused)
     "custom_bg": "",  // Background picture
@@ -134,9 +135,16 @@ The following is in Chinese, and I'm too lazy to translate.
 
 搭档契合，`character_affinity: list[int]`和`affinity_multiplier: list[float]`是一一对应的，前者是搭档列表，后者是对应搭档的进度倍数列表
 
+### Chain Info
+
+- `chain_info: dict`里只有`id: str`和`index: int`
+- `id` 一致的就是一组图，`index` 是各个图的顺序，从1开始
+- 只对 Beyond 图有效，代表了一个链式的解锁顺序，前一张图未完成是看不到下一张图的信息的
+- 可参考官方的那个五连环
+
 ### Available Time
 
-限时地图，一般出现在event章节中，请注意`available_from: int`和`available_to: int`都是毫秒时间戳，应当有13位
+限时地图，一般出现在 event 章节中，请注意`available_from: int`和`available_to: int`都是毫秒时间戳，应当有13位
 
 ### Map Require
 
