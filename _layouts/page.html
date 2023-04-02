@@ -236,6 +236,13 @@ layout: base
   </div> {%- comment -%} end page__viewport {%- endcomment -%}
 {%- endif -%}
 
+<div style="z-index: 9999; position: fixed ! important; right: 20px; bottom: 50px;">
+  <button style="display:none" id="scroll_up_button"  class="button button--secondary button--circle"><i class="fas fa-chevron-up"></i></button>
+</div>
+<div style="z-index: 9999; position: fixed ! important; right: 20px; bottom: 20px;">
+  <button style="display:none" id="scroll_down_button"  class="button button--secondary button--circle"><i class="fas fa-chevron-down"></i></button>
+</div>
+
 <script>{%- include scripts/lib/modal.js -%}</script>
 {%- if _lightbox == true -%}
   <div class="modal d-print-none js-page-gallery-modal"><div class="gallery"></div></div>
