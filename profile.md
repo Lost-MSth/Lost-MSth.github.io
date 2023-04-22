@@ -23,15 +23,16 @@ show_title: false
 - *Skilled*
   - Python
 - *General*
-  - Matlab
+  - MATLAB
   - SQL
   - RenPy
+  - Cython
   - LaTeX
   - ~~Mathematica~~
 - *Able*
+  - C
   - Fortran
   - JavaScript (Vue 3)
-  - C
 - *Used previously*
   - Pascal (FP)
   - Basic (VB, QB, FB)

@@ -14,7 +14,11 @@
 		    macros: {
 				ii: "\\mathrm{i}",
 				ee: "\\mathrm{e}",
-				pp: "\\partial"
+				pp: "\\partial",
+				arctanh: "\\mathinner{\\rm arctanh}",
+				obra: ["\\mathinner{\\left({#1}\\right|}", 1],
+				oket: ["\\mathinner{\\left|{#1}\\right)}", 1],
+				obraket: ["\\mathinner{\\left({#1}\\middle|{#2}\\right)}", 2],
 			},
 			packages: {'[+]': ['physics']}
 		}
