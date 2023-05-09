@@ -392,7 +392,7 @@ $$
 群空间 $V_G$ 上定义 $x, y$ 的乘法：
 
 $$
-xy = \sum_{\alpha} (x_{\alpha} g_{\alpha}) \sum_{\beta} (y_{\beta} g_{\beta}) = \sum_{\alpha, \beta} (g_{\alpha} g_{\beta}) = \sum_{\gamma} (xy)_{\gamma} g_{\gamma}
+xy = \sum_{\alpha} (x_{\alpha} g_{\alpha}) \sum_{\beta} (y_{\beta} g_{\beta}) = \sum_{\alpha, \beta} (x_{\alpha} y_{\beta}) (g_{\alpha} g_{\beta}) = \sum_{\gamma} (xy)_{\gamma} g_{\gamma}
 $$
 
 则群空间 $V_G$ 构成一个结合代数，称为 $G$ 的群代数 $R_{G}$
