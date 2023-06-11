@@ -11,6 +11,8 @@ aside:
 
 很显然需求来自物理问题，因课题还未完成，暂且不表，应该会另开文章进行总结，完整代码也会给出
 
+> 后加说明：论文代码详见 [本科毕设论文代码](https://github.com/Lost-MSth/Lost/tree/main/Maths%26Physics/%E6%9C%AC%E7%A7%91%E6%AF%95%E8%AE%BE%E8%AE%BA%E6%96%87%E4%BB%A3%E7%A0%81)，论文草稿详见 [量子多体引力模拟中的 Krylov 复杂度研究](../../../2023/06/11/krylov复杂度-量子模拟.html)
+
 ## 模型分析
 
 数据结构大概就是超大矩阵的感觉，而且矩阵元是复数，方阵阶数为 $2^n$，$n$ 是粒子数，呃，我们就叫它 `MultiPauliString` 好了，就是多粒子 Pauli 链
