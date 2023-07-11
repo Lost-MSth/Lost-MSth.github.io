@@ -15,15 +15,17 @@
   </script>
   <script>
     window.Lazyload.js(['{{ _sources.jquery }}', '{{ _sources.leancloud_js_sdk}}'], function() {
-      var pageview = window.pageview(AV, {
-        appId:    '{{ _LEANCLOUD_APP_ID }}',
-        appKey:   '{{ _LEANCLOUD_APP_KEY }}',
-        appClass: '{{ _LEANCLOUD_APP_CLASS }}'
-      });
-      var key =   '{{ page.key }}';
-      var title = {{ page.title | jsonify }};
-      pageview.increase(key, title, function(view) {
-        $("[data-page-key='{{ page.key }}']").text(view);
+      $( function() {
+        var pageview = window.pageview(AV, {
+          appId:    '{{ _LEANCLOUD_APP_ID }}',
+          appKey:   '{{ _LEANCLOUD_APP_KEY }}',
+          appClass: '{{ _LEANCLOUD_APP_CLASS }}'
+        });
+        var key =   '{{ page.key }}';
+        var title = {{ page.title | jsonify }};
+        pageview.increase(key, title, function(view) {
+          $("[data-page-key='{{ page.key }}']").text(view);
+        });
       });
     });
   </script>
