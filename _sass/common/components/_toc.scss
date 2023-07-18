@@ -4,10 +4,10 @@ ul.toc {
   @include css-var(color, "var(--text-color)");
   list-style-type: none;
   & > li {
-    margin: map-get($spacers, 1) / 2 0;
+    margin: calc(map-get($spacers, 1) / 2) 0;
     a { /* stylelint-disable-line selector-max-type */
       display: inline-block;
-      margin: map-get($spacers, 1) / 4 0;
+      margin: calc(map-get($spacers, 1) / 4) 0;
       text-decoration: none !important; /* stylelint-disable-line declaration-no-important */
     }
   }

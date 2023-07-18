@@ -10,33 +10,34 @@ show_title: false
 
 - A college student who majors in physics
 - An amateur programmer who is learning in many aspects
-- An otaku who likes animations, light novels and so on.
+- An otaku who likes animations, light novels and so on
 - Maybe you can find more identities of me...
 
 ### Experience
 
 - Bachelor: School of Physics, Xi'an Jiaotong University
-- Doctor: ...
+- Doctor: ... <!-- International Center for Quantum Materials, Peking University -->
 
 ### Programming Languages
 
 - *Skilled*
   - Python
 - *General*
+  - Cython
   - MATLAB
   - SQL
   - RenPy
-  - Cython
-  - LaTeX
+  - JavaScript (Vue 3)
+  - $\LaTeX$
   - ~~Mathematica~~
 - *Able*
   - C
+  - Rust
   - Fortran
-  - JavaScript (Vue 3)
 - *Used previously*
   - Pascal (FP)
   - Basic (VB, QB, FB)
 
 ### Contact
 
-**Email**: th84292@foxmail.com
+**Email**: <font face="Consolas">th84292@foxmail.com</font>

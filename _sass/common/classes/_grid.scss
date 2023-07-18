@@ -18,7 +18,7 @@ $grid-columns: 12;
     @include flex(1);
   } @else {
     @include flex(none);
-    width: percentage($columns / $grid-columns);
+    width: percentage(calc($columns / $grid-columns));
   }
 }
 
