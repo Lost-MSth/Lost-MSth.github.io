@@ -7,6 +7,14 @@ $grid-columns: 12;
   min-width: 0;
 }
 
+@function strip-unit($number) {
+  @if type-of($number) == 'number' and not unitless($number) {
+    @return $number / ($number * 0 + 1);
+  }
+
+  @return $number;
+}
+
 @mixin make-cell($columns) {
   @if $columns == "auto" {
     @include flex(1 1 0);
@@ -18,7 +26,7 @@ $grid-columns: 12;
     @include flex(1);
   } @else {
     @include flex(none);
-    width: percentage(calc($columns / $grid-columns));
+    width: percentage(strip-unit(calc($columns / $grid-columns)));
   }
 }
 
