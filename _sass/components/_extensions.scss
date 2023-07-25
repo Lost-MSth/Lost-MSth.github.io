@@ -16,17 +16,18 @@
   }
 }
 
+
 .extensions--video {
-  padding-top: percentage(calc(315 / 560));
+  padding-top: calc((315 / 560) * 100%);
 }
 
 .extensions--slide {
-  padding-top: percentage(calc(487 / 599));
+  padding-top: calc((487 / 599) * 100%);
 }
 
 .extensions--demo {
   min-height: 340px;
-  padding-top: percentage(calc(315 / 560));
+  padding-top: calc((315 / 560) * 100%);
 }
 
 .extensions--audio {
