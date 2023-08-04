@@ -6,6 +6,8 @@
         selectors = 'h1,h2,h3', container = 'body', scrollTarget = window, scroller = 'html, body', disabled = false,
         headingsPos, scrolling = false, hasRendered = false, hasInit = false;
 
+      // var $parent = $root.parent(); // added by Lost-MSth
+
       function setOptions(options) {
         var _options = options || {};
         _options.selectors && (selectors = _options.selectors);
@@ -40,6 +42,13 @@
         }
         $activeLast && $activeLast.removeClass('active');
         ($activeLast = $activeCur).addClass('active');
+        // // added by Lost-MSth
+        // if ($parent.hasClass("fixed")) {
+        //   let x = $activeCur[0].offsetTop - 100;
+        //   $parent[0].style.top = -x + "px";
+        //   // console.log();
+        // }
+        // // end added
       }
       function render() {
         if(!hasRendered) {
