@@ -1,5 +1,5 @@
 ---
-title: Android无ROOT权限动态调试
+title: Android 无 ROOT 权限动态调试
 key: android_debug_without_root
 tags: ["Reverse Engineering", "Dynamic Debugging", "Android", "IDA"]
 modify_date: "2023-02-01 22:20:00"
@@ -9,7 +9,7 @@ aside:
 
 ## 前情提要
 
-手上只有自己的手机能用，又想要动态调试，试了安卓模拟器不行，ARM架构的模拟器就只有Android Studio的AVD，可是不知是不是没调好，卡的要死，基本没法用，于是随手一搜，我去，真有无ROOT调试大法啊~
+手上只有自己的手机能用，又想要动态调试，试了安卓模拟器不行，ARM 架构的模拟器就只有 Android Studio 的 AVD，可是不知是不是没调好，卡的要死，基本没法用，于是随手一搜，我去，真有无 ROOT 调试大法啊~
 
 嘛，看雪论坛资料是真的多啊！不过还是有不少坑的，先把参考资料扔上来：
 
@@ -23,17 +23,17 @@ aside:
 
 ## 相关环境
 
-- 手机OS：Android 10 (HarmonyOS 2)
+- 手机 OS：Android 10 (HarmonyOS 2)
 - IDA Pro v7.5
-- 某APP的APK，内有ARM 64的so文件
-- ADB调试工具
+- 某 APP 的 APK，内有 ARM 64 的 so 文件
+- ADB 调试工具
 - 解包、打包、签名相关工具
   - apktool 2.7.0
   - keytool、jarsigner
 
-很明显手机无ROOT权限，且是64位的ARM架构的核心，所以选用64位so文件进行动调
+很明显手机无 ROOT 权限，且是 64 位的 ARM 架构的核心，所以选用 64 位 so 文件进行动调
 
-已知APP没有任何反调试，没有乱七八糟的签名校验什么的
+已知 APP 没有任何反调试，没有乱七八糟的签名校验什么的
 
 ## 简要步骤
 
