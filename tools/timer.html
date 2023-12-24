@@ -1,0 +1,147 @@
+---
+layout: page
+comment: false
+mathjax: false
+title: Timer
+key: tools-timer
+---
+
+A simple timer starting from a given time, including countup and countdown. Time accuracy depends on system time, with
+an update interval of 100 milliseconds.
+
+<div class="timer">
+    <br />
+    <div class="timer__display hero">
+        <h1 class="timer__display__time">00:00:00.0</h1>
+    </div>
+    <div>
+        <button id="start-stop-timer"
+            class="button button--outline-success button--rounded timer__controls">Start</button>
+        <button id="reset-timer" class="button button--outline-warning button--rounded timer__controls">Reset</button>
+        <input type="text" id="start-time-input" class="input timer__controls" />
+        <button id="count-up-down" class="button button--info button--circle"><i class="fas fa-arrow-up"></i></button>
+    </div>
+    <br />
+</div>
+
+<script>
+    const timerDisplay = document.querySelector('.timer__display__time');
+    const start_stop_button = document.getElementById('start-stop-timer');
+    const stopTimerButton = document.getElementById('stop-timer');
+    const resetTimerButton = document.getElementById('reset-timer');
+    const startTimeInput = document.getElementById('start-time-input');
+    const countUpDownButton = document.getElementById('count-up-down');
+    let intervalId;
+    let startTime;
+    let elapsedTime = 0;
+    let isRunning = false;
+    let isCountingUp = true;
+
+    function padTime(time) {
+        return time.toString().padStart(2, '0');
+    }
+
+    function refresh_time(t) {
+        const hours = Math.floor(t / 3600000);
+        const minutes = Math.floor((t % 3600000) / 60000);
+        const seconds = Math.floor((t % 60000) / 1000);
+        const milliseconds = Math.floor((t % 1000) / 100);
+        timerDisplay.textContent = `${padTime(hours)}:${padTime(minutes)}:${padTime(seconds)}.${milliseconds}`;
+    }
+
+    function displayTime() {
+        const currentTime = new Date().getTime();
+        if (isCountingUp) {
+            t = elapsedTime + currentTime - startTime;
+        } else {
+            t = elapsedTime - currentTime + startTime;
+            if (t < 0) {
+                t = 0;
+                stopTimer();
+                elapsedTime = 0;
+            }
+        }
+        refresh_time(t);
+    }
+
+    function startTimer() {
+        isRunning = true;
+        countUpDownButton.disabled = true;
+        start_stop_button.textContent = 'Stop';
+        startTime = new Date().getTime();
+        intervalId = setInterval(displayTime, 100);
+    }
+
+    function stopTimer() {
+        isRunning = false;
+        countUpDownButton.disabled = false;
+        start_stop_button.textContent = 'Start';
+        if (isCountingUp) {
+            elapsedTime += new Date().getTime() - startTime;
+        } else {
+            elapsedTime -= new Date().getTime() - startTime;
+        }
+        clearInterval(intervalId);
+    }
+
+    function resetTimer() {
+        stopTimer();
+        elapsedTime = get_start_time();
+        refresh_time(elapsedTime);
+    }
+
+    function get_start_time() {
+        const timeInputValue = startTimeInput.value;
+        if (!timeInputValue) return 0;
+        const timeInput = timeInputValue.split(':');
+        timeInput.reverse();
+        const hours = parseInt(timeInput[2]) || 0;
+        const minutes = parseInt(timeInput[1]) || 0;
+        const seconds = parseInt(timeInput[0]) || 0;
+        t = hours * 3600000 + minutes * 60000 + seconds * 1000;
+        if (t < 0) return 0;
+        if (t > 3600000 * 99) return 3600000 * 99;
+        return t;
+    }
+
+    function start_stop() {
+        if (isRunning) {
+            stopTimer();
+        } else {
+            startTimer();
+        }
+    }
+
+    function count_up_down() {
+        if (isRunning) return;
+        isCountingUp = !isCountingUp;
+        if (isCountingUp) {
+            countUpDownButton.children[0].className = 'fas fa-arrow-up';
+        } else {
+            countUpDownButton.children[0].className = 'fas fa-arrow-down';
+        }
+    }
+
+    start_stop_button.addEventListener('click', start_stop);
+    resetTimerButton.addEventListener('click', resetTimer);
+    countUpDownButton.addEventListener('click', count_up_down);
+</script>
+
+<style>
+    .timer {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .timer__display {
+        font-weight: bold;
+        margin-bottom: 2rem;
+    }
+
+    .timer__controls {
+        margin: 0.25rem;
+        width: 5rem;
+    }
+</style>

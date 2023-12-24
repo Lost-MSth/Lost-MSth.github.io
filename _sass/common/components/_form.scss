@@ -1,0 +1,10 @@
+.input {
+    font-weight: map-get($base, font-weight);
+    line-height: map-get($base, line-height);
+    background-color: transparent;
+    border: 1px solid;
+    border-radius: map-get($base, border-radius);
+    @include css-var(border-color, "var(--border-color)");
+    display: inline-block;
+    padding: map-get($spacers, 1) map-get($spacers, 2);
+}

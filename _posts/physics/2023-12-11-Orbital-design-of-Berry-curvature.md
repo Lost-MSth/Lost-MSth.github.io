@@ -2,7 +2,7 @@
 title: "Orbital design of Berry curvature: pinch points and giant dipoles induced by crystal fields 论文翻译"
 key: orbital_design_of_berry_curvature
 tags: ["physics"]
-modify_date: "2023-12-11 23:00:00"
+modify_date: "2023-12-12 22:00:00"
 aside:
     toc: true
 ---
@@ -42,7 +42,7 @@ Berry 曲率——一个编码固体中电子波函数几何性质的量——�
 
 在量子现象中，那些与电子波函数的几何性质有关的量子现象无疑起着主要作用。量子几何张量的虚部对应于众所周知的 Berry 曲率，当它在整个 BZ 上积分时，给出了分类二维绝缘体的 Chern number 陈数。在具有部分填充能带的金属系统中，如果系统破坏了时间反演对称性，则所有占据态上的 BC 相加可以导致非零 Berry 相位，这种 Berry 相位控制了磁性金属的反常 Hall 电导的本征部分。在没有外部磁场的情况下，非磁性材料的 BC 电荷输运 diagnostic 诊断需要超越线性响应机制，Hall-like 电流表现为对驱动电场的非线性（二次）响应，其本征贡献由 Berry 曲率偶极子决定，BCD 本质上是动量空间中 Berry 曲率的一阶矩。
 
-一个基本的问题是：即使在完全没有空穴激发的情况下，电子系统是否以及如何在时间反演对称条件下产生强烈的局域 BC 浓度。在这里，我们通过证明具有有效伪自旋一个轨道自由度的自旋轨道自由金属系统 spin–orbit free metallic systems with an effective pseudo-spin one orbital degree of freedom 可以出现 BC 热点和特征 BC 奇异夹点，从而给出了这个问题的肯定答案，它们产生的偶极子的数量级比 2DEG 中的自旋轨道耦合所产生的偶极子的数量级大。
+一个基本的问题是：即使在完全没有空穴激发的情况下，电子系统是否以及如何在时间反演对称条件下产生强烈的局域 BC 浓度。在这里，我们通过证明具有有效的伪自旋为一的轨道自由度的自旋轨道自由金属系统 spin–orbit free metallic systems with an effective pseudo-spin one orbital degree of freedom 可以出现 BC 热点和特征 BC 奇异夹点，从而给出了这个问题的肯定答案，它们产生的偶极子的数量级比 2DEG 中的自旋轨道耦合所产生的偶极子的数量级大。
 
 ## RESULTS
 
@@ -68,7 +68,7 @@ $$
     \mathcal{H} (\vb*{k}) = \Delta \qty(\Lambda_3 + \frac{1}{\sqrt{3}} \Lambda_8) - a_R \qty(k_x \Lambda_5 + k_y \Lambda_2) .
 \end{equation}
 $$
-式中，参数 $\Delta$ 量化了 $$\mathrm{p}_{x,y}$$ 双重态和 $$\mathrm{p}_z$$ 单态之间的能级分裂。我们对空穴和电子不共存的系统感兴趣，故接着引入对三个能带有相同有效质量的一项 $$\hbar^2 k^2 \Lambda_0 / (2m)$$，随后的 Hamiltonian 可以看作是 Rashba 2DEG 到 $$\mathrm{SU}(3)$$ 系统的推广。对应的能谱见图 <a href="#img:1">1</a>d，这与时间反演对称性破缺的二维电子气的结果相似，但计算表明，对应的 BC 对所有动量都是零。下面的关键是，只依赖于通过将晶格点群降低到 $$\mathrm{C}_s$$ 产生的晶格场效应，我们发现有效 Hamiltonian 为
+式中，参数 $\Delta$ 量化了 $$\mathrm{p}_{x,y}$$ 双重态和 $$\mathrm{p}_z$$ 单态之间的能级分裂。我们对空穴和电子不共存的系统感兴趣，故接着引入对三个能带有相同有效质量的一项 $$\hbar^2 k^2 \Lambda_0 / (2m)$$，随后的 Hamiltonian 可以看作是 Rashba 2DEG 到 $$\mathrm{SU}(3)$$ 系统的推广。对应的能谱见图 <a href="#img:1">1</a>d，这与时间反演对称性破缺的二维电子气的结果相似，但计算表明，对应的 BC 对所有动量都是零。下面的关键是，只依赖于通过将晶格点群降低到 $$\mathrm{C}_s$$ 产生的晶体场效应，我们发现有效 Hamiltonian 为
 $$
 \begin{equation}
 \begin{aligned}
@@ -90,6 +90,8 @@ $$
 ### Material realizations
 
 > 此部分基本省略（所以也没有图 2 了），是符合条件的材料的一些介绍
+>
+> 好像漏了很重要一段，算了，直接口述吧：选择 $(111) \ \text{LAO/STO}$ 异质界面，氧化物中的低温相变降低了晶体的对称性，$$\text{STO}$$ 在 $105 \ \text{K}$ 有从立方相到四方结构的相变，打破了三重旋转对称性，保留了一个镜像对称性，这就实现了之前所说的对称性降低的要求
 
 在分析 BC 起源和物理结果以及特征夹点之前，我们现在介绍一种自然有轨道自由度和所需的低晶格对称性的材料——**过渡金属氧化物 transition metal oxides 的 $[1 1 1]$ 界面**，其具有 $t_{2g}$ 轨道特征的二维 $\mathrm{d}$ 电子系统，例如 $\mathrm{SrTiO}_3$、$\mathrm{K Ta O}_3$ 和 $\mathrm{SrVO}_3$ 基底的异质结。
 
@@ -106,11 +108,11 @@ $$
 
 在确定了 $(111)$ 取向的氧化物异质界面是理想的材料平台后，接下来我们分析了 BC 的特性和它的一阶矩。我们首先注意到，在二能级自旋系统的情况下，自旋分裂能带的局部 Berry 曲率，如果非零，则是相反的。由于两个自旋能带在每个费米能区的同时存在，除了被一个自旋带占据的动量外，自旋分裂能带抵消了各自的局域 BC。在近在咫尺的 $\mathrm{SU}(3)$ 系统中，有一个类似的求和规则，即在每一个动量 $$\vb*{k}$$ 处，三个能带的 BC 求和为零。然而，如上所述，轨道能带不受费米子乘法定理的约束，在某些能量范围内，占据单个轨道能带时，BC 不会抵消（参考图 <a href="#img:3">3</a>a, b）。
 
-自旋和轨道导致的 BC 二者之间还有一个关键差别，与生成一个角动量一个子空间的 $\mathrm{SU}(3)$ 系统不同，在 $\mathrm{SU}(2)$ 自旋系统中，对称结构常数为零。因此，只要不考虑晶体各向异性，星积 star product $$\vb*{b_k} \star \vb*{b_k}$$ 的消失就阻止了具有时间反向对称性的 BC 的出现。而另一边，对于 $\mathrm{SU}(3)$，所有三个纯虚数的 Gell-Mann 矩阵 $\Lambda_{2,5,7}$ 的存在，再加上“质量”项 $\Lambda_{3, 8}$，在甚至只考虑动量线性项的情况下，是出现时间反演对称性 BC 中心 concentrations 的充分条件。然而，这严格要求必须打破所有的旋转对称性。
+自旋和轨道导致的 BC 二者之间还有一个关键差别，与生成一个角动量为一的子空间的 $\mathrm{SU}(3)$ 系统不同，在 $\mathrm{SU}(2)$ 自旋系统中，对称结构常数为零。因此，只要不考虑晶体各向异性，星积 star product $$\vb*{b_k} \star \vb*{b_k}$$ 的消失就阻止了具有时间反向对称性的 BC 的出现。而另一边，对于 $\mathrm{SU}(3)$，所有三个纯虚数的 Gell-Mann 矩阵 $\Lambda_{2,5,7}$ 的存在，再加上“质量”项 $\Lambda_{3, 8}$，在甚至只考虑动量线性项的情况下，是出现时间反演对称性 BC 中心 concentrations 的充分条件。然而，这严格要求必须打破所有的旋转对称性。
 
-接下来，我们从最低能带开始分析了局域 BC 的性质，该能带对应于 $(111) \ \text{LAO/STO}$ 异质界面的 $(\ket{xy} + \ket{xz} + \ket{yz}) / \sqrt{3}$ 态（$\text{LAO}$ 就是 $\text{LaAlO}_3$ 铝酸镧，$\text{STO}$ 就是 $\text{SrTiO}_3$ 钛酸锶）。图 <a href="#img:3">3</a>c 是特征 BC 剖面，它显示了中心在 $k_y = 0$ 线上的两个相反极点，由于 BC 作为任何真正的伪标量在垂直镜像对称运算下必须是奇的 odd，即 $\Omega(k_x, k_y) = - \Omega(-k_x, k_y)$，所以源和汇到镜像对称线 $k_x = 0$ 的距离是相等的。注意到，时间反转对称性和垂直镜像的组合意味着 BC 将甚至有变换 $k_y \rightarrow − k_y$，从而保证 BC 热点将以 $k_y = 0$ 线为中心。源和汇的有限 $k_x$ 值与能带 $n=1$ 和 $n=2$ 之间的（直接）能隙最小的点是吻合的（见图 <a href="#img:3">3</a>a, b 和补充材料 note 2），因此轨道间混合 interorbital mixing 是最大的。
+接下来，我们从最低能带开始分析了局域 BC 的性质，该能带对应于 $(111) \ \text{LAO/STO}$ 异质界面的 $(\ket{xy} + \ket{xz} + \ket{yz}) / \sqrt{3}$ 态（$\text{LAO}$ 就是 $\text{LaAlO}_3$ 铝酸镧，$\text{STO}$ 就是 $\text{SrTiO}_3$ 钛酸锶）。图 <a href="#img:3">3</a>c 是特征 BC 剖面，它显示了中心在 $k_y = 0$ 线上的两个相反极点，由于 BC 作为任何真正的伪标量在垂直镜像对称运算下必须是奇的 odd，即 $\Omega(k_x, k_y) = - \Omega(-k_x, k_y)$，所以源和汇到镜像对称线 $k_x = 0$ 的距离是相等的。注意到，时间反演对称性和垂直镜像的组合意味着 BC 将甚至有变换 $k_y \rightarrow − k_y$，从而保证 BC 热点将以 $k_y = 0$ 线为中心。源和汇的有限 $k_x$ 值与能带 $n=1$ 和 $n=2$ 之间的（直接）能隙最小的点是吻合的（见图 <a href="#img:3">3</a>a, b 和补充材料 note 2），因此轨道间混合 interorbital mixing 是最大的。
 
-BC 的性质显然反映在 BCD 局域浓度 $\pp_{k_x} \Omega(k_x, k_y)$ 中：它在 BZ 的中心有一个非常强的局域的正区，并被有限 $k_x$ 处的两个镜像对称的负区所中和，见图 <a href="#img:3">3</a>f。接下来，让我们考虑由三重旋转对称破缺而分裂的两个简并 $e'_g $ 态产生的 BC 分布。图 <a href="#img:3">3</a>d 是最低能带的 BC 剖面：它完全由 $k_x=0$ 线上的镜像对称保护简并引起的 BC 夹点所控制。BC 在夹点周围还显示出节环 nodal ring，因此在奇点周围具有特征性的 $$\mathrm{d}$$ 波特征。这可以通过围绕两个与时间反演相关的简并来构建 $$\vb*{k} \vdot \vb*{p}$$ 理论来理解，为此，我们首先回顾从 $$e'_{g}$$ 态得到的两个能带有相反的沿着 BZ 的全镜面线 $$k_x \equiv 0$$ 的 $$\mathcal{M}_x$$ 镜像本征值，因此，在接近简并的情况下，$\mathcal{M}_x$ 可以被表示为 $\sigma_z$，其中 $\mathcal{M}_x$ 变换导致 $k_x \rightarrow - k_x$ 且 $k_y$ 不变。在接近简并的情况下，一个有效的二能带模型必须有如下形式的领头项：
+BC 的性质显然反映在 BCD 局域浓度 $\pp_{k_x} \Omega(k_x, k_y)$ 中：它在 BZ 的中心有一个非常强的局域的正区，并被有限 $k_x$ 处的两个镜像对称的负区所中和，见图 <a href="#img:3">3</a>f。接下来，让我们考虑由三重旋转对称破缺而分裂的两个简并 $e'_g $ 态产生的 BC 分布。图 <a href="#img:3">3</a>d 是两个能带中低能带的 BC 剖面：它完全由 $k_x=0$ 线上的镜像对称保护简并引起的 BC 夹点所控制。BC 在夹点周围还显示出节环 nodal ring，因此在奇点周围具有特征性的 $$\mathrm{d}$$ 波特征。这可以通过围绕两个与时间反演相关的简并来构建 $$\vb*{k} \vdot \vb*{p}$$ 理论来理解，为此，我们首先回顾从 $$e'_{g}$$ 态得到的两个能带有相反的沿着 BZ 的全镜面线 $$k_x \equiv 0$$ 的 $$\mathcal{M}_x$$ 镜像本征值，因此，在接近简并的情况下，$\mathcal{M}_x$ 可以被表示为 $\sigma_z$，其中 $\mathcal{M}_x$ 变换导致 $k_x \rightarrow - k_x$ 且 $k_y$ 不变。在接近简并的情况下，一个有效的二能带模型必须有如下形式的领头项：
 $$
 \begin{equation}
     \mathcal{H}_{\text{eff}} = v_x k_x \sigma_x + \beta k_x \delta k_y \sigma_y + v_y \delta k_y \sigma_z ,
