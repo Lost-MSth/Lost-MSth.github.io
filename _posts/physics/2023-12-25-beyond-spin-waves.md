@@ -3,7 +3,7 @@
 title: "Beyond spin waves"
 key: beyond_spin_waves
 tags: ["physics"]
-modify_date: "2023-12-25 22:00:00"
+modify_date: "2023-12-29 14:00:00"
 aside:
     toc: true
 ---
@@ -219,7 +219,7 @@ $$
 similarly, the **external** point should be connected to odd number of bonds. Note that the leading graph is the shortest path connecting the external points, $$\vb*{0}$$ and $$\vb*{r}$$. Since each bond along the path contributes $(K / 2)$, to lowest order, we get
 $$
 \begin{equation}
-    \ev{\vb*{s}_{\vb*{0}} \vdot \vb*{s}_{\vb*{r}}} \approx \qty(\frac{K}{2})^2 = \ee^{-r / \xi} , \text{ with } \xi \approx \frac{1}{\ln(2 / K)} ,
+    \ev{\vb*{s}_{\vb*{0}} \vdot \vb*{s}_{\vb*{r}}} \approx \qty(\frac{K}{2})^{2r} = \ee^{-r / \xi} , \text{ with } \xi \approx \frac{1}{\ln(2 / K)} ,
 \end{equation}
 $$
 and the disordered high-temperature phase is characterized by an **exponential** decay of correlations.
