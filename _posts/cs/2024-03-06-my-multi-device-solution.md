@@ -1,8 +1,8 @@
 ---
-modify_date: "2024-03-06 23:00:00"
+modify_date: "2024-03-07 22:00:00"
 title: 个人多设备使用解决方案
 key: my_multi_device_solution
-tags: ["Resilio Sync", "ZeroTier"]
+tags: []
 aside:
     toc: true
 ---
@@ -44,14 +44,14 @@ aside:
 
 ### ZeroTier
 
-这是非常著名的虚拟局域网软件，上[官网](www.zerotier.com)注册账号，免费用户应该可以最多添加 25 个节点，完全够用了，登录控制台然后创建 Network，设置中可以改一个好记的 IPv4 内网地址范围，比如这里我选的是 `172.25.*.*`
+这是非常著名的虚拟局域网软件，上[官网](https://www.zerotier.com)注册账号，免费用户应该可以最多添加 25 个节点，完全够用了，登录控制台然后创建 Network，设置中可以改一个好记的 IPv4 内网地址范围，比如这里我选的是 `172.25.*.*`
 
 然后到[下载页面](https://www.zerotier.com/download/)去下指定平台的客户端就好了，以 Windows 平台为例，在第一次启动时会在任务栏托盘处有个图标，注意这是个前端 UI，服务与它不挂钩，你把它退出也是没有问题的
 
 Win+X 打开“终端管理员”或者“命令提示符（管理员）”，ZeroTier 是命令行操控的，基本命令 `zerotier-cli`，常用的有
 
 ```bash
-# Leaf 是用户设备，Planet 是官方的发现和中转服务器（可以自建），Moon 是用户自建中转服务器
+# Leaf 是用户设备，Planet 是官方的发现和中转服务器（根服务器，可以自建），Moon 是用户自建中转服务器
 zerotier-cli peers  # 查看当前局域网内 Leaf、Planet 和 Moon 的连接情况
 zerotier-cli listpeers  # 基本同上
 zerotier-cli join <network ID>  # 加入某个局域网
@@ -79,16 +79,156 @@ zerotier-cli join <network ID>  # 加入某个局域网
 
 先说说为什么要破解吧，在 Windows 上，如果你不是 Pro 版本或者试用的话，文件夹是无法**选择性同步**的，这意味着你在所有同步这个文件夹的设备上都需要完整同步所有文件，而选择性同步是用一个空文件来占位，这将大大节约空间，起码我认为这是非常必要的功能（在手机上这个功能是免费的，草）
 
-其实我也不记得我怎么破的了，我改过好几次来看效果，我觉得关键点在于 License 相关的内部 API，就是有字符串 `LF[%O]: LicenseFolder::IsActive(%s): return FALSE, license expired e: %u c: %u` 的被调用的内个函数，这个字符串应该是要直接搜 hex bytes 的（每个字符都用 `0x00` 间隔）
+其实我也不记得我怎么破的了，我改过好几次来看效果，我觉得关键点在于 License 相关的内部 API，就是有字符串 `LF[%O]: LicenseFolder::IsActive(%s): return FALSE, license expired e: %u c: %u` 的被调用的那个函数，这个字符串应该是要直接搜 hex bytes 的（每个字符都用 `0x00` 间隔）
+
+### Dufs
+
+Dufs 是一个 Rust 写的静态文件服务端，我主要是使用它来提供 WebDAV 服务给 Zotero 文献同步用
+
+#### 基本使用
+
+这是一个开源项目，Github [官方仓库](https://github.com/sigoden/dufs)的 Releases 显然可以直接下载对应平台的程序文件，以 Windows 64 位为例，显然应该下载含有 `x86_64-pc-windows` 字眼的文件
+
+解压后发现是单文件程序，其实这是个命令行程序，丢到任意目录中再设定好环境变量 Path 就行，我这里使用偷懒方法，直接丢进 `C:\Windows` 目录，之后使用命令 `dufs` 可直接启动服务端
+
+为了安全性考虑，请考虑一个密码，最好是强密码，我不知道这软件的防爆破能力如何，虽然是在校内网络中，但受到网络攻击也是有可能的
+
+同时为了方便起见，不可能每次都手动输入命令，最简单的办法是写个批处理扔到启动项目录中
+
+```bash
+# C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Startup\webdav.bat
+dufs -A D:\WebDav -a <User>:<Password>@/:rw -p 8100
+# --tls-cert <*.crt> --tls-key <*.key>
+```
+
+参数说明：`-A` 后面是需要映射出去的目录，建个空文件夹就行；`-a` 后面是用户、密码和对应的目录与权限，具体看官方的 README，这里设置的是一个根目录读写权限都有的账户；`-p` 后面是指定服务监听的端口号（不设置也行），请避开常用端口；`--tls-cert` 和 `--tls-key` 后面显然是 SSL 证书与私钥，如果有域名的话最好设置一下
+
+好了，这时候双击脚本启动，或者开机后，会发现对应的命令行窗口，开始时会给出所有监听的地址和端口，后续有请求时可以看到日志，这种启动方式比较简陋，但够用了
+
+我们可以测试一下 web 服务的正常与否，打开网页后输入账号密码即可进入管理页面，可以发现这是一个简单的 web 远程文件管理器
+
+#### For Zotero
+
+Zotero 是非常常用的文件管理软件，官方应该是提供了免费的数据同步功能和一定量的文件同步容量，跨设备时这非常有用，但是那点容量实在不够放几篇的，所以自建 WebDAV 是有必要的
+
+相关设置非常简单，在“编辑”的“首选项”中的“同步”页面，在“文件同步”中选择同步方式为“WebDAV”，输入服务器地址和端口，如果没有设置 SSL 前面协议选择 http，同户名和密码就是刚才设置好的，之后点击“验证服务器”就可以判断是否成功设置了，底下我设置了“下载文件在需要时”，并关闭官方的 Zotero 云存储功能
+
+现在就可以愉快同步了，未下载到本地的附件会用半透明显示
 
 ## 番剧相关
 
+~~看番是人类的一大追求~~，看更高画质的番是一大享受
+
+其实一整套搞完，也就提升一下画质和流畅度，减少画面水印什么的，感觉直接上各种小网站看也没差太多
+
 ### AutoBangumi
+
+一个基于 Python 的 Flask 的番剧 RSS 订阅自动更新、自动推送到 qBitTorrent 进行下载、自动重命名来适配媒体库刮削的软件，[官方网站](https://www.autobangumi.org/)上面有非常详细的中文文档
+
+虽然他们强烈推荐 Docker 部署，但我就不，我甚至虚拟环境都不开，直接原地进行部署，推荐正常人按照[本地部署说明](https://www.autobangumi.org/deploy/local.html)走一波就好
+
+下面的操作如果没有自信请不要学：对我来说，手动操作更得劲，到 Github Releases 中直接下载解压扔到随便哪个目录，原地启命令行 `pip install -r requirements.txt`，然后目录中创建文件夹 `config` 和 `data`，接着写个 `autobangumi_start.bat` 脚本放在目录中，就一行 `python main.py`，最后发送桌面快捷方式，把快捷方式剪切到启动项目录 `C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Startup` 中，搞定~
+
+现在开机自启或者手动启动可以看到对应的命令行窗口了，打开它给的前端管理页面，第一件事情就是右上角的菜单中进行“账户设置”，设一个用户名和强密码，接着到左边菜单的设置中的“常规设置”中调整一下 RSS 间隔（单位为秒）和网页端口号，如果改了端口就重启服务端重新打开页面
+
+接着就是一些具体设置了，比如在“番剧管理设置”中将“重命名方式”改为“advance”是对我而言更舒服的，比如“代理设置”中我设置了代理什么的……另外 bt 下载器的设置我们之后会提
+
+### Mikan
+
+Mikan 是较为有名的番剧种子列表网站，同样的还有动漫花园什么的，Mikan 的[官网](https://mikanani.me/)应该被墙了要挂代理，或者官方也有[国内通道](https://mikanime.tv/)
+
+网站的使用挺简单的，先注册账号，然后到账号设置中打开“高级订阅”，接着分情况讨论：
+
+1. 当季追番时：主页点想追的番进去，一般有好几个字幕组，订阅一个即可，网站自带简单的简繁分辨
+   1. 我比较喜欢外挂字幕或者 MKV 内封字幕，这样视频和字幕是分离的，不过做这种的字幕组更新速度不太及时
+   2. 订阅后稍等一会儿，可以在主页中查看全部的订阅的最近更新，右下角有聚合 RSS 链接，复制其网址到 AutoBangumi 管理页右上角的“添加 RSS”中，勾选“聚合 RSS”，点击“添加”即可
+   3. 如果这番已经更新几集了，且没有在聚合 RSS 中看到前几集，你可能需要先单独添加这部番，按照下部分的内容进行操作
+2. 旧番非聚合 RSS：对于 Mikan 中的有帮你整理好各个字幕组的番剧，它已经更新了几集或者全更新完了
+   1. 请选择你需要的字幕组，点击字幕组名称旁边的 RSS 链接，将其复制到 AutoBangumi 的“添加 RSS”中，这时会继续进入下个页面，应该可以看到识别出来的番剧名称和季度等信息
+   2. 注意到最后有个排除，会被用来对字幕组的“番组名”进行过滤，用好它可以阻止多余资源被下载
+   3. 特别注意到最后是两个按钮：Collect 的意思是将符合条件的全部剧集进行下载；Subscribe 是订阅更新，只会下更新的剧集，一般用来追单个番剧，我一般用不到它
+   4. 以 Collect 下载的番剧不会出现在 AutoBangumi List 中
+3. 旧番整合种子：如果这是个非常冷的番 Mikan 并没有进行人工分类，或者你是在别的地方找到整季种子的
+   1. 对于 Mikan 搜索到的，直接点进去下载种子就行
+   2. 下面的操作就只与下载器有关了，qBitTorrent 管理网页可以直接上传种子，选择要下到的文件夹即可
+   3. 最好先看看种子中文件的结构，如果只是文件夹里面有一堆视频文件，那可以放心地直接下载到媒体库中，否则，有一堆其它文件的最好做硬链接处理
+   4. qBitTorrent 管理网页上对种子右键可以重命名文件，会一点正则表达式就可以批量改文件名了，这种改名方式是安全的，也是必要的（后续的元数据刮削基于文件名），最好不要在系统的文件资源管理器中直接修改文件名
+
+### qBitTorrent
+
+这是非常著名的 bittorrent 种子下载器，直接从[官网](https://www.qbittorrent.org/)下载即可（要挂代理），安装应该不是问题
+
+打开它，在“工具”的“选项”中有一大堆的设置，大部分保持默认即可，“行为”里设置开机自启，接着建议在“速度”中进行一下全局上传带宽限制
+
+重点是 BitTorrent 页面中，最顶上的前三个钩打上，第四个随便，再拉到最后面，勾选自动添加 Tracker，并到 Github 上随便找个 [trackerlist](https://github.com/XIU2/TrackersListCollection)，把一堆 tracker 的协议地址复制进去，tracker 顾名思义是用来让两台设备之间互相发现资源并连接的，多加点没啥坏处
+
+另外的一个重点是 Web UI，设置个好记的端口号，“验证”中设置用户名和强密码，这时可以回去看 AutoBangumi 的“下载设置”了，选择下载器类型并填入地址 `127.0.0.1:<PORT 端口号>`，用户名和密码填上，然后设置下面的“下载地址”，这个地址是本地目录，比如直接填写媒体库目录 `E:\Animation`
 
 ### Jellyfin
 
+这是一个开源媒体管理系统，[官网地址](https://jellyfin.org/)和[官方仓库](https://github.com/jellyfin/jellyfin)都很有用，官网下载 Windows 版本的 Server，客户端看情况下，基本适配全平台，它的商业版本听说比它好用来着但是不管了（
+
+[官方文档](https://jellyfin.org/docs/)非常详细，但是是英文的，装好软件后打开它，右下角任务栏托盘有图标，右键设置开机自启
+
+第一次启动默认管理页面应该是 `http://localhost:8096`，这个页面要对外的话，我使用了 Nginx 反向代理，顺手设置了个证书，这个下一节再说
+
+我记不得了，但印象中第一次打开似乎是需要设置管理员账户的，在网页中打开“控制台”，然后干下面这几件事：
+
+1. 在“插件”的“存储库”页面中，添加以下地址 `https://jellyfin-plugin-bangumi.pages.dev/repository.json`，这是 [bangumi](https://bgm.tv/) 的刮削插件（没账号先注册一个），[官方仓库](https://github.com/kookxiang/jellyfin-plugin-bangumi)也有安装说明，挂上梯子，然后点击“我的插件”页面，找到它并安装激活，之后可在菜单栏中看到“Bangumi 设置”了，在里面授权绑定你的 Bangumi 账号就好了
+2. 在“媒体库”中添加媒体库，对于番剧请选择“节目”，首先添加文件夹（本地目录），接着在所有“元数据下载器”和“图片获取程序”中将“Bangumi”勾选并放到第一个位置，其它刮削器就随便设置了，对于“图片获取程序（剧集）”可以勾选“Embedded Image Extractor”和“Screen Grabber”，最后“媒体资料储存方式”可以勾选一下“Nfo”，可以勾选“将媒体图片保存到媒体所在文件夹”
+3. 在“播放”的“转码”中，硬件加速看设备能选啥就选啥，“启用硬件解码”可以全部勾选（我这是台式机，单纯的 NAS 请使用专用客户端观看，意思就是性能羸弱的服务器基本不能直接网页播放），最后的“允许实时提取字幕”和“限制转码速度”可以勾选
+4. 这时候回到首页应该可以看到添加的媒体库了，所有番剧都躺在里面
+
+自动刮削的文件名和目录结构要求官方文档中有[说明](https://jellyfin.org/docs/general/server/media/shows/)，有些番剧，特别是老番全季下载打包的，带 OVA、剧场版、SP 小剧场的那种，会识别错误，注意一下就好，看着不爽也可以手动调整，但是挺烦的，需要将所有剧集的元数据中的“外部 ID”改对，再将季度的元数据的“外部 ID”改对，然后“刷新元数据”，选择“覆盖所有元数据”并“替换现有图片”，等一会就行了
+
+有些番 Bangumi 是没有的，别问为什么（
+
 ### Nginx
 
-### qBittorrent
+过于著名的反向代理、静态文件代理服务端，这里用来反代 Jellyfin 的网页，[官网](https://nginx.org/)直接下载就好了，解压后是一个文件夹，丢到某个目录里即可，然后对里面的 `nginx.exe` 发送桌面快捷方式，再将快捷方式复制到启动项目录 `C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Startup` 中，确保开机自启，别急着开，先写配置，不然你得到任务管理器里把它关掉再重开了
 
-> In building...
+软件目录中的 `conf/nginx.conf` 用随便什么文本编辑器打开，你可以看到它给的模板，我们稍加改动就有：
+
+```nginx
+worker_processes  1;
+
+events {
+    worker_connections  1024;
+}
+
+http {
+    include       mime.types;
+    default_type  application/octet-stream;
+    sendfile        on;
+    keepalive_timeout  65;
+
+    server {
+        listen       88;
+        # listen       88 ssl;
+        server_name  localhost;
+
+        # ssl_certificate      your_ssl_cert.pem;
+        # ssl_certificate_key  your_ssl_private_key.key;
+
+        location / {
+            proxy_pass  http://127.0.0.1:8096;
+            proxy_set_header Host $proxy_host;
+            proxy_set_header X-Real-IP $remote_addr;
+            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+            proxy_set_header Upgrade $http_upgrade;
+            proxy_set_header Connection "upgrade";
+        }
+
+        error_page   500 502 503 504  /50x.html;
+        location = /50x.html {
+            root   html;
+        }
+    }
+}
+```
+
+我注释掉的是我挂域名证书和开 SSL 的配置，可以不用，注意到 `http://127.0.0.1:8096` 是 Jellyfin 的 web 页面，Nginx 将其映射到外部的 88 端口（也可以换个别的好记的）上去了
+
+设置好后打开，你应该能在远程设备上访问 Jellyfin 的页面 `http://<IP address>:88` 了
+
+这上面配置中看起来奇怪的部分是为了让 websocket 能正常使用的设置，这样 Jellyfin 的用户同步播放功能就能正常工作了
