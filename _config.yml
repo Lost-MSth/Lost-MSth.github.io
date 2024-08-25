@@ -224,5 +224,5 @@ plugins:
   - jekyll-sitemap
   - jemoji
 
-gems:
-  - jekyll-target-blank
+# gems:
+#   - jekyll-target-blank
