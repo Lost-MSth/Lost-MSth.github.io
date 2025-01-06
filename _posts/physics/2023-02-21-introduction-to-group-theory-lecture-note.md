@@ -2,7 +2,7 @@
 title: 《群论导论》课程笔记
 key: introduction_to_group_theory_lecture_note
 tags: ["physics"]
-modify_date: "2025-01-06 17:00:00"
+modify_date: "2025-01-07 17:00:00"
 aside:
     toc: true
 ---
@@ -539,7 +539,7 @@ $$
 
 **重要推论**：
 
-1. 群的所有不等价不可约表示的数目等于群的类的数目
+1. **群的所有不等价不可约表示的数目等于群的类的数目**
 2. 两个不同类之间的特征标互相正交
 
    $$
@@ -1005,13 +1005,13 @@ Frobenius 定理
 
 同时，反之若满足上述四个条件，则线性空间可以被这样直和分解。
 
-设群 $G$ 的不可约幺正表示为 $A^{(\alpha)}$，其中 $\alpha = 1, 2, \cdots, q$，表示维数为 $s_\alpha$。$P_G$ 为 $G$ 对应的算符群，$P_G = \{\hat{P}_g \lvert g \in G\}$。定义算符 $\hat{P}_{kj}^{(\alpha)} = \frac{s_\alpha}{n} \sum_{g \in G} A^{(\alpha) *}_{kj} (g) \hat{P}_g$，则这些算符满足关系 $\hat{P}_{kj}^{(\alpha)} \hat{P}_{il}^{(\beta)} = \delta_{\alpha\beta} \delta_{ij} \hat{P}_{kl}^{(\alpha)}$，且 $\hat{P}_{jj}^{(\alpha)}$ 为投影算符。
+设群 $G$ 的不可约幺正表示为 $A^{(\alpha)}$，其中 $\alpha = 1, 2, \cdots, q$，表示维数为 $s_\alpha$。$P_G$ 为 $G$ 对应的算符群，$$P_G = \{\hat{P}_g \lvert g \in G\}$$。定义算符 $$\hat{P}_{kj}^{(\alpha)} = \frac{s_\alpha}{n} \sum_{g \in G} A^{(\alpha) *}_{kj} (g) \hat{P}_g$$，则这些算符满足关系 $$\hat{P}_{kj}^{(\alpha)} \hat{P}_{il}^{(\beta)} = \delta_{\alpha\beta} \delta_{ij} \hat{P}_{kl}^{(\alpha)}$$，且 $\hat{P}_{jj}^{(\alpha)}$ 为投影算符。
 
-进一步可定义**特征标投影算符** $\hat{P}^{(\alpha)} = \sum_{j=1}^{s_\alpha} \hat{P}_{jj}^{(\alpha)}$，即 $\hat{P}^{(\alpha)} = \frac{s_\alpha}{n} \sum_{g \in G} \chi^{(\alpha) *} (g) \hat{P}_g$。它满足完备性关系 $\sum_{\alpha = 1}^q \hat{P}^{(\alpha)} = \hat{P}_e$，$\hat{P}_e$ 为恒等算符。
+进一步可定义**特征标投影算符** $\hat{P}^{(\alpha)} = \sum_{j=1}^{s_\alpha} \hat{P}_{jj}^{(\alpha)}$，即 $$\hat{P}^{(\alpha)} = \frac{s_\alpha}{n} \sum_{g \in G} \chi^{(\alpha) *} (g) \hat{P}_g$$。它满足完备性关系 $$\sum_{\alpha = 1}^q \hat{P}^{(\alpha)} = \hat{P}_e$$，$\hat{P}_e$ 为恒等算符。
 
 有限群不可约幺正表示基函数定理：
 
-1. 对群 $G$ 的函数作用算符群 $P_G$ 定义算符 $\hat{P}_{ij}^{(\alpha)}$，对一组基函数 $\{ \varphi_i^{(\alpha)} \}$，其中 $i = 1, 2, \cdots, s_{\alpha}$，这组基函数构成群 $G$ 的第 $\alpha$ 个不可约幺正表示基函数的充要条件为：$\hat{P}_{ij}^{(\alpha)} \varphi_j^{(\alpha)} = \varphi_i^{(\alpha)}$，这里 $\varphi_i^{(\alpha)}$ 称为对称化基函数。
+1. 对群 $G$ 的函数作用算符群 $P_G$ 定义算符 $$\hat{P}_{ij}^{(\alpha)}$$，对一组基函数 $\{ \varphi_i^{(\alpha)} \}$，其中 $i = 1, 2, \cdots, s_{\alpha}$，这组基函数构成群 $G$ 的第 $\alpha$ 个不可约幺正表示基函数的充要条件为：$$\hat{P}_{ij}^{(\alpha)} \varphi_j^{(\alpha)} = \varphi_i^{(\alpha)}$$，这里 $\varphi_i^{(\alpha)}$ 称为对称化基函数。
 2. 有限群不等价、不可约幺正表示的基函数 $\{ \varphi_i^{(\alpha)} \}$，其中 $i = 1, \cdots, s_\alpha$ 且 $\alpha = 1, \cdots q$，满足如下正交关系：$$\obraket{\varphi_i^{(\alpha)}}{\varphi_j^{(\beta)}} = \delta_{ij} \delta_{\alpha \beta} f^{(\alpha)}$$，其中 $f^{(\alpha)}$ 与 $i$、$j$ 无关。
 
 ### 置换群
@@ -1044,7 +1044,7 @@ $$
 
 可以由轮换分解来划分置换群的类别，这个轮换分解我们标记为 $$(\gamma) = (1^{\gamma_1}, 2^{\gamma_2}, \cdots, n^{\gamma_n})$$，即该类中有 $\gamma_1$ 个一阶轮换，$\gamma_2$ 个二阶轮换，以此类推有 $\gamma_n$ 个 $n$ 阶轮换。对个数要求 $\gamma_1 + 2 \gamma_2 + \cdots + n \gamma_n = n$，这里的 $\gamma_i$ 为非负整数。
 
-定义**杨图**（Young Diagram），它的标记方式是 $[\lambda] = [\lambda_1, \lambda_2, \cdots, \lambda_n]$，其中 $\lambda_i = \sum_{j = i}^{n} \gamma_j$（即后缀和），同样有求和关系 $\lambda_1 + \lambda_2 + \cdots + \lambda_n = n$，注意它们是不下降序列。
+定义**杨图**（Young Diagram），它的标记方式是 $[\lambda] = [\lambda_1, \lambda_2, \cdots, \lambda_n]$，称为**配分数**，其中 $\lambda_i = \sum_{j = i}^{n} \gamma_j$（即后缀和），同样有求和关系 $\lambda_1 + \lambda_2 + \cdots + \lambda_n = n$，注意它们是不下降序列。
 
 这样的话 $S_n$ 的分类就可以用杨图来表示了。它就是 $n$ 个小方格，排列方式为第一行到第 $n$ 行分别是 $\lambda_1$ 到 $\lambda_n$ 个小方格，它们的第一列靠左对齐。显然，**有多少个杨图，这个置换群就有多少个类。**
 
@@ -1064,5 +1064,9 @@ $$
 3. 不同杨图的杨盘给出的不可约表示不等价。
 
 **杨图 $[\lambda]$ 对应的不可约表示的维度，等于其标准盘的个数。**
+
+> 补一个计算技巧：只有一个公共元的两个轮换可以连接，即 $$\mqty(a & b & c & d) \mqty(d & e & f) = \mqty(a & b & c & d & e & f)$$，注意等号意味着同样也可以用这个式子来拆解。
+
+> 略去李群、李代数部分，因为要从拓扑、流形开始抄，不想干了。
 
 ### 补充例子
