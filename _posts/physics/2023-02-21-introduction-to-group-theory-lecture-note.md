@@ -2,7 +2,7 @@
 title: 《群论导论》课程笔记
 key: introduction_to_group_theory_lecture_note
 tags: ["physics"]
-modify_date: "2025-01-03 17:00:00"
+modify_date: "2025-01-06 17:00:00"
 aside:
     toc: true
 ---
@@ -990,5 +990,79 @@ Frobenius 定理
       4. 与 $O$ 同构：$T_d = T \cup I (O - T)$
 
 > 记号上来讲，$h$ 是指有垂直最高次转动轴的镜面反射 $\sigma_h = IC_2$ 元素（就是水平面反射）；$v$ 是指有垂直水平面的反射面 $\sigma_v$ 元素；$d$ 是在 $v$ 的基础上，要求这个反射面平分水平面上的两个二次轴的夹角。
+
+### 群论与量子力学
+
+投影算符
+: 线性空间 $V$ 上的线性算符 $\hat{P}$，若满足 $\hat{P}^2 = \hat{P}$，则称 $\hat{P}$ 是 $V$ 上的一个投影算符。
+
+若线性空间 $V = W_1 \oplus W_2 \oplus \cdots \oplus W_k$，则 $V$ 上存在投影算符 $\{\hat{P}_k\}$ 满足：
+
+1. $\hat{P}_i^2 = \hat{P}_i$
+2. $\hat{P}_i \hat{P}_j = 0 \quad (i \neq j)$
+3. $\hat{P}_1 + \hat{P}_2 + \cdots + \hat{P}_k = E$
+4. $\hat{P}_i V = W_i$
+
+同时，反之若满足上述四个条件，则线性空间可以被这样直和分解。
+
+设群 $G$ 的不可约幺正表示为 $A^{(\alpha)}$，其中 $\alpha = 1, 2, \cdots, q$，表示维数为 $s_\alpha$。$P_G$ 为 $G$ 对应的算符群，$P_G = \{\hat{P}_g \lvert g \in G\}$。定义算符 $\hat{P}_{kj}^{(\alpha)} = \frac{s_\alpha}{n} \sum_{g \in G} A^{(\alpha) *}_{kj} (g) \hat{P}_g$，则这些算符满足关系 $\hat{P}_{kj}^{(\alpha)} \hat{P}_{il}^{(\beta)} = \delta_{\alpha\beta} \delta_{ij} \hat{P}_{kl}^{(\alpha)}$，且 $\hat{P}_{jj}^{(\alpha)}$ 为投影算符。
+
+进一步可定义**特征标投影算符** $\hat{P}^{(\alpha)} = \sum_{j=1}^{s_\alpha} \hat{P}_{jj}^{(\alpha)}$，即 $\hat{P}^{(\alpha)} = \frac{s_\alpha}{n} \sum_{g \in G} \chi^{(\alpha) *} (g) \hat{P}_g$。它满足完备性关系 $\sum_{\alpha = 1}^q \hat{P}^{(\alpha)} = \hat{P}_e$，$\hat{P}_e$ 为恒等算符。
+
+有限群不可约幺正表示基函数定理：
+
+1. 对群 $G$ 的函数作用算符群 $P_G$ 定义算符 $\hat{P}_{ij}^{(\alpha)}$，对一组基函数 $\{ \varphi_i^{(\alpha)} \}$，其中 $i = 1, 2, \cdots, s_{\alpha}$，这组基函数构成群 $G$ 的第 $\alpha$ 个不可约幺正表示基函数的充要条件为：$\hat{P}_{ij}^{(\alpha)} \varphi_j^{(\alpha)} = \varphi_i^{(\alpha)}$，这里 $\varphi_i^{(\alpha)}$ 称为对称化基函数。
+2. 有限群不等价、不可约幺正表示的基函数 $\{ \varphi_i^{(\alpha)} \}$，其中 $i = 1, \cdots, s_\alpha$ 且 $\alpha = 1, \cdots q$，满足如下正交关系：$$\obraket{\varphi_i^{(\alpha)}}{\varphi_j^{(\beta)}} = \delta_{ij} \delta_{\alpha \beta} f^{(\alpha)}$$，其中 $f^{(\alpha)}$ 与 $i$、$j$ 无关。
+
+### 置换群
+
+将 $n$ 个数字的排列 $\{1, 2, \cdots, n\}$ 的排列 $a_1, a_2, \cdots, a_n$ 映射为排列 $b_1, b_2, \cdots, b_n$ 的操作，称为一个 $n$ 阶**置换**，记为：
+$$
+s = \mqty(
+   a_1 & a_2 & \cdots & a_n \\
+   b_1 & b_2 & \cdots & b_n
+)
+$$
+
+置换群
+: 定义两个置换 $r$、$s$ 的乘积 $rs$ 为先执行置换 $s$，再执行置换 $r$，则在此乘法规则下所有的 $n$ 阶置换的集合构成一个群，这个群就称为 $n$ 阶置换群或 $n$ 阶对称群，记为 $S_n$。
+
+轮换
+: 一种特殊的置换 $$\mqty(a_1 & a_2 & \cdots & a_n \\ a_2 & a_3 & \cdots & a_1)$$ 称为轮换，记为 $$\mqty(a_1 & a_2 & \cdots & a_n)$$，轮换数码的个数 $n$ 称为轮换的阶。
+
+对换
+: 二阶轮换 $$\mqty(a_1 & a_2)$$ 称为对换。
+
+轮换的性质：
+
+1. 两个轮换之间**没有公共数码**，则称它们**相互独立**，相互独立的轮换之间的乘法满足交换律。
+2. **任意的 $n$ 阶置换总可以分解为相互独立的轮换的乘积。**
+3. 轮换的逆就是反过来，即 $$\mqty(a_1 & a_2 & \cdots & a_n)^{-1} = \mqty(a_n & a_{n-1} & \cdots & a_1)$$。
+4. **任意一个 $m$ 阶轮换都可以写成 $m − 1$ 个对换的乘积。**
+
+**具有相同轮换结构的置换构成置换群 $S_n$ 的一个类**。相同的轮换结构这样的规定有两个意思，既指它们有相同个数的轮换因子，又指各轮换因子中数码个数也完全相同。
+
+可以由轮换分解来划分置换群的类别，这个轮换分解我们标记为 $$(\gamma) = (1^{\gamma_1}, 2^{\gamma_2}, \cdots, n^{\gamma_n})$$，即该类中有 $\gamma_1$ 个一阶轮换，$\gamma_2$ 个二阶轮换，以此类推有 $\gamma_n$ 个 $n$ 阶轮换。对个数要求 $\gamma_1 + 2 \gamma_2 + \cdots + n \gamma_n = n$，这里的 $\gamma_i$ 为非负整数。
+
+定义**杨图**（Young Diagram），它的标记方式是 $[\lambda] = [\lambda_1, \lambda_2, \cdots, \lambda_n]$，其中 $\lambda_i = \sum_{j = i}^{n} \gamma_j$（即后缀和），同样有求和关系 $\lambda_1 + \lambda_2 + \cdots + \lambda_n = n$，注意它们是不下降序列。
+
+这样的话 $S_n$ 的分类就可以用杨图来表示了。它就是 $n$ 个小方格，排列方式为第一行到第 $n$ 行分别是 $\lambda_1$ 到 $\lambda_n$ 个小方格，它们的第一列靠左对齐。显然，**有多少个杨图，这个置换群就有多少个类。**
+
+进一步，定义**杨盘**（杨表 Young Tableau）：将数字 $1$ 到 $n$ 分别填到 $S_n$ 的杨图的 $n$ 个小方格中，得到的就是杨盘（填完了数的杨图）。如果是**从左到右、从上到下按数字增加的方式**来填充的杨盘则成为**标准杨盘**。
+
+由一个杨盘 $T$ 可以定义行置换 $R(T)$ 与列置换 $C(T)$。$R(T)$ 是保持杨盘 $T$ 的各行中的数字还在其相对行上的所有置换 $\hat{p}$ 的集合 $\{\hat{p}\}$；$C(T)$ 是保持杨盘 $T$ 的各列中的数字还在其相对列上的所有置换 $\hat{q}$ 的集合 $\{\hat{q}\}$。
+
+进一步由行、列置换可以定义两个算符 $$\hat{P}(T) = \sum_{\hat{p} \in R(T)} \hat{p}$$ 和 $$\hat{Q}(T) = \sum_{\hat{q} \in C(T)} \delta_q \hat{q}$$，这里 $\delta_q = 1$ 如果 $\hat{q}$ 为偶置换，$\delta_q = -1$ 如果 $\hat{q}$ 为奇置换。这里偶置换与奇置换指的是在置换本身化为对换的乘积后，对换的个数是偶数个还是奇数个。
+
+杨算符
+: 它是杨盘 $T$ 的算符 $\hat{P}(T)$ 与 $\hat{Q}(T)$ 的乘积，形式为：$$\hat{E}(T) = \hat{P}(T) \hat{Q}(T) = \sum_{\hat{p} \in R(T)} \sum_{\hat{q} \in C(T)} \delta_q \hat{p} \hat{q} $$。显然杨算符是群空间 $R_{S_n}$ 中的一个矢量。一个杨盘对应一个杨算符。
+
+**杨盘定理**：
+
+1. 杨盘 $T$ 的杨算符 $\hat{E}(T)$ 可给出置换群群空间 $R_{S_n}$ 中的一个本原幂等元 $\hat{E}(T)/\theta$，其中 $\theta$ 为一个常数。也就是说一个杨盘给出置换群在其群空间 $R_{S_n}$ 中的一个不可约表示。
+2. 同一个杨图的不同杨盘给出的不可约表示相互等价。
+3. 不同杨图的杨盘给出的不可约表示不等价。
+
+**杨图 $[\lambda]$ 对应的不可约表示的维度，等于其标准盘的个数。**
 
 ### 补充例子
