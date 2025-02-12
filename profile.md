@@ -24,6 +24,7 @@ show_title: false
   - Python
 - *General*
   - Cython
+  - C
   - MATLAB
   - SQL
   - RenPy
@@ -31,7 +32,8 @@ show_title: false
   - $\LaTeX$
   - ~~Mathematica~~
 - *Able*
-  - C
+  - C++
+  - Julia
   - Rust
   - Fortran
 - *Used previously*
@@ -40,4 +42,4 @@ show_title: false
 
 ### Contact
 
-**Email**: <font face="Consolas">th84292@foxmail.com</font>
+**Email**: <font face="Consolas">contact@lost-msth.cn</font>

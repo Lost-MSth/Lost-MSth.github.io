@@ -105,7 +105,7 @@ key: tools-index
 
 番剧：[磁力搜索](https://www.echanpin.com/)、[磁力转种子](https://magnet2torrent.com/)、[Mikan 追番](https://mikanime.tv/)、[动漫花园](https://dmhy.org/)
 
-GPT：[Poe](https://poe.com/)、[ChatGPT](https://chatgpt.com/)
+GPT：[Poe](https://poe.com/)、[ChatGPT](https://chatgpt.com/)、[DeepSeek](https://chat.deepseek.com/)
 
 购物：[京东](https://www.jd.com/)、[淘宝](https://www.taobao.com/)、[慢慢买比价平台](https://www.manmanbuy.com/)、[什么值得买](https://www.smzdm.com/)
 
