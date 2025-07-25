@@ -1,3 +1,33 @@
 /* start custom scss snippet */
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+  /**/
+}
+
+::-webkit-scrollbar-track {
+  background: #ddd;
+  border-radius: 2px;
+}
+
+::-webkit-scrollbar-track-piece {
+  background-color: transparent;
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb {
+  cursor: pointer;
+  background: #777;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #aaa;
+}
+
+::-webkit-scrollbar-corner {
+  background: #204754;
+  display: block;
+}
 
 /* end custom scss snippet */

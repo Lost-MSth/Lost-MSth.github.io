@@ -15,10 +15,12 @@ source0=site.mathjax_autoNumber source1=page.mathjax_autoNumber -%}
 				ii: "\\mathrm{i}",
 				ee: "\\mathrm{e}",
 				pp: "\\partial",
+				DD: "\\mathcal{D}",
 				arctanh: "\\mathinner{\\rm arctanh}",
 				obra: ["\\mathinner{\\left({#1}\\right|}", 1],
 				oket: ["\\mathinner{\\left|{#1}\\right)}", 1],
 				obraket: ["\\mathinner{\\left({#1}\\middle|{#2}\\right)}", 2],
+				nnb: ["\\mathinner{\\left\\langle{#1}\\right\\rangle}", 1],
 			},
 			packages: { '[+]': ['physics'] }
 		},
@@ -28,7 +30,14 @@ source0=site.mathjax_autoNumber source1=page.mathjax_autoNumber -%}
 		ready() {
 			MathJax.startup.defaultReady();
 			MathJax.startup.promise.then(() => {
-				$('mjx-math[width="full"]').parent().wrap("<div class='mathjax-block'></div>");
+				window.Lazyload.js(['{{ _sources.jquery }}'], () => {
+					// Wrap MathJax blocks for styling
+					$('mjx-math[width="full"]').parent().wrap("<div class='mathjax-block'></div>");
+					$('svg[width="100%"]').parent().wrap("<div class='mathjax-block'></div>");
+					// $('mjx-math:not([width])').parent().wrap("<span class='mathjax-inline'></span>");
+				});
+				// $('mjx-math[width="full"]').parent().wrap("<div class='mathjax-block'></div>");
+				// $('svg[width="100%"]').parent().wrap("<div class='mathjax-block'></div>");
 				// $('mjx-math:not([width])').parent().wrap("<span class='mathjax-inline'></span>");
 			});
 		}
