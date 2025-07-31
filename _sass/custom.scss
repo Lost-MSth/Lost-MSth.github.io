@@ -31,3 +31,16 @@
 }
 
 /* end custom scss snippet */
+
+// For three images in a row with equal width:
+
+.image-container-3 {
+  display: flex;
+  justify-content: space-between;
+}
+
+.image-container-3 img {
+  width: 32%;
+  height: auto;
+  border-radius: 5px;
+}
