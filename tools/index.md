@@ -55,13 +55,22 @@ key: tools-index
 : 英文字典单词匹配、Puzzle Hunt
 
 [千篇国学](https://www.qianp.com/)
-: 成语搜索、汉语字典、汉语词典
+: 成语搜索（可定字）、汉语字典、汉语词典
 
 [字统网](https://zi.tools/)
 : 汉字搜索、拼字组字、汉语字典
 
 [搜韵](https://sou-yun.cn/)
-: 诗词、古诗文搜索
+: 诗词、古诗文搜索（可定字）
+
+[汉语国学](https://www.hanyuguoxue.com/)
+: 汉语词典（可定字）、成语词典（可定字）
+
+[押韵大师](https://rap.zlxiang.com/)
+: 押韵、多押
+
+[俗语大全](http://cs.newdu.com/)
+: 俗语、惯用语、歇后语、谚语
 
 #### Puzzle Solver
 
