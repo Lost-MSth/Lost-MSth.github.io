@@ -66,13 +66,21 @@ window.Lazyload.js(SOURCES.jquery, function () {
             }
         }
         check_if_in_view();
-        $('#scroll_up_button').click(function () {
-            $('html, body').animate({ scrollTop: '0px' }, 600)
-        })
+        // $('#scroll_up_button').click(function () {
+        //     $('html, body').animate({ scrollTop: '0px' }, 600)
+        // })
 
-        $('#scroll_down_button').click(function () {
-            $('html, body').animate({ scrollTop: $(document).height() }, 600)
-        })
+        // $('#scroll_down_button').click(function () {
+        //     $('html, body').animate({ scrollTop: $(document).height() }, 600)
+        // })
+
+        document.getElementById('scroll_up_button').addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        document.getElementById('scroll_down_button').addEventListener('click', () => {
+            window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+        });
 
         $(window).bind('scroll', check_if_in_view)
     })

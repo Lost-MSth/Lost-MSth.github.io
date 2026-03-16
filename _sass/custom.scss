@@ -44,3 +44,15 @@
   height: auto;
   border-radius: 5px;
 }
+
+// 暗黑模式下图片滤镜
+
+[data-theme="dark"] img {
+  filter: brightness(0.8) contrast(1.1);
+  transition: filter 0.3s ease;
+}
+
+[data-theme="dark"] img:hover {
+  filter: brightness(1) contrast(1);
+  /* 鼠标放上去恢复原样 */
+}
