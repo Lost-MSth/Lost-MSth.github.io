@@ -31,14 +31,21 @@ source0=site.mathjax_autoNumber source1=page.mathjax_autoNumber -%}
 			MathJax.startup.defaultReady();
 			MathJax.startup.promise.then(() => {
 				window.Lazyload.js(['{{ _sources.jquery }}'], () => {
-					// Wrap MathJax blocks for styling
-					$('mjx-math[width="full"]').parent().wrap("<div class='mathjax-block'></div>");
-					$('svg[width="100%"]').parent().wrap("<div class='mathjax-block'></div>");
+					// Wrap MathJax overflow blocks for styling (idempotent)
+					$('mjx-math[width="full"]').parent().each(function () {
+						var $block = $(this);
+						if (!$block.parent().hasClass('mathjax-block')) {
+							$block.wrap("<div class='mathjax-block'></div>");
+						}
+					});
+					$('svg[width="100%"]').parent().each(function () {
+						var $block = $(this);
+						if (!$block.parent().hasClass('mathjax-block')) {
+							$block.wrap("<div class='mathjax-block'></div>");
+						}
+					});
 					// $('mjx-math:not([width])').parent().wrap("<span class='mathjax-inline'></span>");
 				});
-				// $('mjx-math[width="full"]').parent().wrap("<div class='mathjax-block'></div>");
-				// $('svg[width="100%"]').parent().wrap("<div class='mathjax-block'></div>");
-				// $('mjx-math:not([width])').parent().wrap("<span class='mathjax-inline'></span>");
 			});
 		}
 	};
@@ -72,5 +79,25 @@ source0=site.mathjax_autoNumber source1=page.mathjax_autoNumber -%}
 		overflow-x: auto;
 		overflow-y: hidden;
 		max-width: 100%;
+		scrollbar-width: thin;
+		scrollbar-color: rgba(127, 127, 127, .18) transparent;
+	}
+
+	mjx-container::-webkit-scrollbar {
+		height: 5px;
+		background: transparent;
+	}
+
+	mjx-container::-webkit-scrollbar-track {
+		background: transparent;
+	}
+
+	mjx-container::-webkit-scrollbar-thumb {
+		background: rgba(127, 127, 127, .18);
+		border-radius: 999px;
+	}
+
+	mjx-container::-webkit-scrollbar-thumb:hover {
+		background: rgba(127, 127, 127, .26);
 	}
 </style>

@@ -2,7 +2,6 @@
 ::-webkit-scrollbar {
   width: 5px;
   height: 5px;
-  /**/
 }
 
 ::-webkit-scrollbar-track {
@@ -29,30 +28,310 @@
   background: #204754;
   display: block;
 }
-
 /* end custom scss snippet */
 
-// For three images in a row with equal width:
+/* Keyboard accessibility */
+:focus-visible {
+  outline: 2px solid var(--main-color-1);
+  outline-offset: 2px;
+}
 
+.button:focus-visible,
+.search-box > input:focus-visible {
+  box-shadow: 0 0 0 3px rgba(250, 85, 122, .25);
+}
+
+/* Scroll navigation buttons */
+.scroll-nav {
+  position: fixed !important;
+  right: 20px;
+  z-index: 999;
+}
+
+.scroll-nav--up {
+  bottom: 56px;
+}
+
+.scroll-nav--down {
+  bottom: 20px;
+}
+
+.scroll-nav > .button {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity .18s ease, transform .18s ease;
+}
+
+.scroll-nav > .button.is-hidden {
+  opacity: 0;
+  transform: translateY(8px);
+  pointer-events: none;
+}
+
+@media (max-width: 500px) {
+  .scroll-nav {
+    right: 12px;
+  }
+
+  .scroll-nav--up {
+    bottom: 52px;
+  }
+
+  .scroll-nav--down {
+    bottom: 16px;
+  }
+}
+
+// For three images in a row with equal width.
 .image-container-3 {
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
+  gap: 10px;
 }
 
 .image-container-3 img {
-  width: 32%;
+  width: calc(33.333% - 8px);
   height: auto;
   border-radius: 5px;
 }
 
-// 暗黑模式下图片滤镜
-
-[data-theme="dark"] img {
-  filter: brightness(0.8) contrast(1.1);
-  transition: filter 0.3s ease;
+@media (max-width: 1024px) {
+  .image-container-3 img {
+    width: calc(50% - 8px);
+  }
 }
 
-[data-theme="dark"] img:hover {
-  filter: brightness(1) contrast(1);
-  /* 鼠标放上去恢复原样 */
+@media (max-width: 640px) {
+  .image-container-3 img {
+    width: 100%;
+  }
 }
+
+// Dark mode image tune (reduce glare while keeping details)
+[data-theme="dark"] .article__content img:not(.emoji) {
+  filter: brightness(.84) contrast(1.08);
+  transition: filter .25s ease;
+}
+
+[data-theme="dark"] .article__content img:not(.emoji):hover {
+  filter: brightness(.96) contrast(1.02);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  .scroll-nav > .button {
+    transition: none;
+    transform: none !important;
+  }
+}
+
+/* Pagination statistics text only */
+.layout--home {
+  .pagination > p {
+    font-size: map-get($base, font-size-xs);
+    @include css-var(color, "var(--text-color-l)");
+  }
+}
+
+
+/* Aside TOC: keep long directory navigable */
+.has-aside {
+  .col-aside > aside {
+    max-height: calc(100vh - #{map-get($spacers, 3)});
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    scrollbar-width: thin;
+    scrollbar-color: transparent transparent;
+
+    &::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+      background: transparent;
+    }
+
+    &::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background: transparent;
+      border-radius: 999px;
+      transition: background-color .22s ease;
+    }
+
+    &:hover {
+      scrollbar-color: rgba(127, 127, 127, .34) transparent;
+    }
+
+    &:hover::-webkit-scrollbar-thumb {
+      background: rgba(127, 127, 127, .34);
+    }
+
+    &:hover::-webkit-scrollbar-thumb:hover {
+      background: rgba(127, 127, 127, .52);
+    }
+  }
+
+  .page__aside .toc-aside {
+    padding-top: map-get($spacers, 4);
+    padding-bottom: map-get($spacers, 4);
+  }
+}
+
+
+/* Subtle horizontal scrollers for math and extra-wide media */
+.js-article-content {
+  .mathjax-block,
+  .image-scroll-block {
+    max-width: 100%;
+    overflow-x: auto;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .mathjax-block {
+    margin: .6em 0 1em;
+    padding-bottom: .55rem;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(127, 127, 127, .18) transparent;
+  }
+
+  .mathjax-block::-webkit-scrollbar {
+    height: 5px;
+    background: transparent;
+  }
+
+  .mathjax-block::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .mathjax-block::-webkit-scrollbar-thumb {
+    background: rgba(127, 127, 127, .18);
+    border-radius: 999px;
+  }
+
+  .mathjax-block::-webkit-scrollbar-thumb:hover {
+    background: rgba(127, 127, 127, .26);
+  }
+
+  /* Code blocks: match math scroller style (subtle) */
+  pre,
+  .highlighter-rouge > .highlight > pre,
+  figure.highlight > pre,
+  figure.highlight .rouge-table .code,
+  figure.highlight .rouge-table pre {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(127, 127, 127, .18) transparent;
+  }
+
+  pre::-webkit-scrollbar,
+  .highlighter-rouge > .highlight > pre::-webkit-scrollbar,
+  figure.highlight > pre::-webkit-scrollbar,
+  figure.highlight .rouge-table .code::-webkit-scrollbar,
+  figure.highlight .rouge-table pre::-webkit-scrollbar {
+    height: 5px;
+    background: transparent;
+  }
+
+  pre::-webkit-scrollbar-track,
+  .highlighter-rouge > .highlight > pre::-webkit-scrollbar-track,
+  figure.highlight > pre::-webkit-scrollbar-track,
+  figure.highlight .rouge-table .code::-webkit-scrollbar-track,
+  figure.highlight .rouge-table pre::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  pre::-webkit-scrollbar-thumb,
+  .highlighter-rouge > .highlight > pre::-webkit-scrollbar-thumb,
+  figure.highlight > pre::-webkit-scrollbar-thumb,
+  figure.highlight .rouge-table .code::-webkit-scrollbar-thumb,
+  figure.highlight .rouge-table pre::-webkit-scrollbar-thumb {
+    background: rgba(127, 127, 127, .18);
+    border-radius: 999px;
+  }
+
+  pre::-webkit-scrollbar-thumb:hover,
+  .highlighter-rouge > .highlight > pre::-webkit-scrollbar-thumb:hover,
+  figure.highlight > pre::-webkit-scrollbar-thumb:hover,
+  figure.highlight .rouge-table .code::-webkit-scrollbar-thumb:hover,
+  figure.highlight .rouge-table pre::-webkit-scrollbar-thumb:hover {
+    background: rgba(127, 127, 127, .26);
+  }
+
+  .image-scroll-shell {
+    position: relative;
+    margin: .55rem 0 1rem;
+  }
+
+  .image-scroll-shell::before,
+  .image-scroll-shell::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: .62rem;
+    width: 16px;
+    pointer-events: none;
+    z-index: 2;
+    opacity: .72;
+    transition: opacity .2s ease;
+  }
+
+  .image-scroll-shell::before {
+    left: 0;
+    background: linear-gradient(90deg, var(--background-color), transparent);
+  }
+
+  .image-scroll-shell::after {
+    right: 0;
+    background: linear-gradient(270deg, var(--background-color), transparent);
+  }
+
+  .image-scroll-shell:active::before,
+  .image-scroll-shell:active::after {
+    opacity: .35;
+  }
+
+  .image-scroll-block {
+    padding-bottom: .62rem;
+    overflow-x: scroll;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(127, 127, 127, .42) rgba(127, 127, 127, .08);
+  }
+
+  .image-scroll-block::-webkit-scrollbar {
+    height: 8px;
+    background: transparent;
+  }
+
+  .image-scroll-block::-webkit-scrollbar-track {
+    background: rgba(127, 127, 127, .08);
+    border-radius: 999px;
+  }
+
+  .image-scroll-block::-webkit-scrollbar-thumb {
+    background: rgba(127, 127, 127, .42);
+    border-radius: 999px;
+  }
+
+  .image-scroll-block::-webkit-scrollbar-thumb:hover {
+    background: rgba(127, 127, 127, .56);
+  }
+
+  .image-scroll-block > img {
+    display: block;
+    width: auto;
+    max-width: none;
+    height: auto;
+  }
+}
+
+
+

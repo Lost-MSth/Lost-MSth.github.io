@@ -16,8 +16,8 @@
           {%- endif -%}
         </div>
         {%- if site.search.provider -%}
-          <button class="button button--secondary button--circle search-button" onclick="toggleTheme()"><i id="themeSwitch1" class="fas fa-moon"></i></button>
-          <button class="button button--secondary button--circle search-button js-search-toggle"><i class="fas fa-search"></i></button>
+          <button type="button" class="button button--secondary button--circle search-button js-theme-toggle" aria-label="Switch to dark theme" aria-pressed="false" onclick="toggleTheme()"><i id="themeSwitch1" class="fas fa-moon" aria-hidden="true"></i></button>
+          <button type="button" class="button button--secondary button--circle search-button js-search-toggle" aria-label="Open search"><i class="fas fa-search" aria-hidden="true"></i></button>
         {%- endif -%}
       </div>
       {%- if site.data.navigation.header -%}
@@ -36,8 +36,8 @@
             {%- endif -%}
           {%- endfor -%}
           {%- if site.search.provider -%}
-            <li><button class="button button--secondary button--circle search-button" onclick="toggleTheme()"><i id="themeSwitch2" class="fas fa-moon"></i></button></li>
-            <li><button class="button button--secondary button--circle search-button js-search-toggle"><i class="fas fa-search"></i></button></li>
+            <li><button type="button" class="button button--secondary button--circle search-button js-theme-toggle" aria-label="Switch to dark theme" aria-pressed="false" onclick="toggleTheme()"><i id="themeSwitch2" class="fas fa-moon" aria-hidden="true"></i></button></li>
+            <li><button type="button" class="button button--secondary button--circle search-button js-search-toggle" aria-label="Open search"><i class="fas fa-search" aria-hidden="true"></i></button></li>
           {%- endif -%}
         </ul>
       </nav>

@@ -25,6 +25,24 @@
           headingsPos.push(Math.floor($(this).position().top));
         });
       }
+      function keepActiveItemInView() {
+        if (!$activeCur || !$activeCur[0] || !$root || !$root[0]) {
+          return;
+        }
+        var root = $root[0];
+        var active = $activeCur[0];
+        var padding = 24;
+        var itemTop = active.offsetTop;
+        var itemBottom = itemTop + active.offsetHeight;
+        var viewTop = root.scrollTop;
+        var viewBottom = viewTop + root.clientHeight;
+
+        if (itemTop < viewTop + padding) {
+          root.scrollTop = Math.max(0, itemTop - padding);
+        } else if (itemBottom > viewBottom - padding) {
+          root.scrollTop = Math.max(0, itemBottom - root.clientHeight + padding);
+        }
+      }
       function setState(element, disabled) {
         var scrollTop = $scrollTarget.scrollTop(), i;
         if (disabled || !headingsPos || headingsPos.length < 1) { return; }
@@ -42,6 +60,7 @@
         }
         $activeLast && $activeLast.removeClass('active');
         ($activeLast = $activeCur).addClass('active');
+        keepActiveItemInView();
         // // added by Lost-MSth
         // if ($parent.hasClass("fixed")) {
         //   let x = $activeCur[0].offsetTop - 100;
