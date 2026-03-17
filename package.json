@@ -24,7 +24,8 @@
     "stylelint": "stylelint --syntax scss \"_sass/**/*.scss\"",
     "stylelint-fix": "stylelint --syntax scss \"_sass/**/*.scss\" --fix",
     "gem-build": "rm -fv jekyll-text-theme-*.gem && gem build jekyll-text-theme.gemspec",
-    "gem-push": "gem push jekyll-text-theme-*.gem"
+    "gem-push": "gem push jekyll-text-theme-*.gem",
+    "qa": "powershell -ExecutionPolicy Bypass -File .\\.qa\\run-all.ps1"
   },
   "repository": {
     "type": "git",
