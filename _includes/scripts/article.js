@@ -69,67 +69,6 @@
         button.setAttribute('data-reset-timer', String(resetTimer));
       }
 
-      function attachCodeCopyButtons() {
-        $articleContent.find('.highlight').filter(function() {
-          return $(this).parents('.highlight').length === 0;
-        }).each(function() {
-          var highlight = this;
-          $this = $(highlight);
-          $this.attr('data-lang', $this.find('code').attr('data-lang'));
-
-          if (highlight.querySelector('.js-code-copy')) {
-            return;
-          }
-
-          var button = document.createElement('button');
-          button.type = 'button';
-          button.className = 'code-copy-btn js-code-copy';
-          button.setAttribute('aria-label', 'Copy code');
-          button.textContent = 'Copy';
-          highlight.appendChild(button);
-        });
-      }
-
-
-      function markExternalLinks() {
-        var root = $articleContent.get(0);
-        if (!root) {
-          return;
-        }
-        var links = root.querySelectorAll('.article__content a[href]');
-        for (var i = 0; i < links.length; i++) {
-          var link = links[i];
-          if (link.classList.contains('external-link')) {
-            continue;
-          }
-          if (link.classList.contains('button') || link.querySelector('img, svg, figure')) {
-            continue;
-          }
-
-          var href = (link.getAttribute('href') || '').trim();
-          if (!href || href.charAt(0) === '#' || href.indexOf('/') === 0 || href.indexOf('./') === 0 || href.indexOf('../') === 0) {
-            continue;
-          }
-          if (/^(mailto:|tel:|javascript:)/i.test(href)) {
-            continue;
-          }
-
-          try {
-            var targetUrl = new URL(href, window.location.href);
-            if (targetUrl.origin !== window.location.origin) {
-              link.classList.add('external-link');
-            }
-          } catch (err) {
-            // ignore malformed url
-          }
-        }
-      }
-
-      $articleContent.find('h1[id], h2[id], h3[id], h4[id], h5[id], h6[id]').each(function() {
-        $this = $(this);
-        $this.append($('<a class="anchor d-print-none" aria-hidden="true"></a>').html('<i class="fas fa-anchor"></i>'));
-      });
-
       $articleContent.on('click', '.anchor', function() {
         $scroll.scrollToAnchor('#' + $(this).parent().attr('id'), 400);
       });
@@ -196,8 +135,6 @@
         });
       }
 
-      attachCodeCopyButtons();
-      markExternalLinks();
       processOverflowImages();
       $(window).on('resize', window.throttle(processOverflowImages, 150));
     });
