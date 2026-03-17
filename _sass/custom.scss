@@ -111,11 +111,16 @@
 // Dark mode image tune (reduce glare while keeping details)
 [data-theme="dark"] .article__content img:not(.emoji) {
   filter: brightness(.84) contrast(1.08);
-  transition: filter .25s ease;
 }
 
-[data-theme="dark"] .article__content img:not(.emoji):hover {
-  filter: brightness(.96) contrast(1.02);
+@media (hover: hover) and (pointer: fine) {
+  [data-theme="dark"] .article__content img:not(.emoji) {
+    transition: filter .2s ease;
+  }
+
+  [data-theme="dark"] .article__content img:not(.emoji):hover {
+    filter: brightness(.96) contrast(1.02);
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -409,7 +414,7 @@
     cursor: pointer;
     @include css-var(color, "var(--text-color-l)");
     background: rgba(127, 127, 127, .12);
-    transition: opacity .14s ease, transform .14s ease, background-color .14s ease, color .14s ease;
+    transition: opacity .14s ease, transform .14s ease;
   }
 
   .highlight:hover .code-copy-btn,
@@ -476,4 +481,95 @@
 .comments-lazy__button.is-loading {
   opacity: .75;
   cursor: wait;
+}
+
+
+/* Scroll reveal (GPU-friendly) */
+.reveal-ready {
+  opacity: 0;
+  transform: translate3d(0, 14px, 0);
+  transition: transform .46s cubic-bezier(.2, .7, .2, 1), opacity .42s ease;
+  transition-delay: var(--reveal-delay, 0ms);
+  backface-visibility: hidden;
+}
+
+.reveal-ready.is-revealed {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+}
+
+
+/* Footnote UX: clear target feedback, lightweight motion */
+.article__content a.footnote,
+.article__content .footnotes a.reversefootnote {
+  text-decoration: none;
+  opacity: .78;
+  transition: opacity .16s ease, transform .16s ease;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .article__content a.footnote:hover,
+  .article__content .footnotes a.reversefootnote:hover {
+    opacity: 1;
+    transform: translate3d(0, -1px, 0);
+  }
+}
+
+.article__content sup[id^="fnref:"],
+.article__content .footnotes li[id^="fn:"] {
+  scroll-margin-top: 84px;
+}
+
+.layout--page--sidebar .article__content sup[id^="fnref:"],
+.layout--page--sidebar .article__content .footnotes li[id^="fn:"] {
+  scroll-margin-top: 18px;
+}
+
+.article__content .is-footnote-target {
+  animation: footnote-target-flash .95s ease;
+}
+
+@keyframes footnote-target-flash {
+  0% {
+    background-color: rgba(250, 85, 122, .16);
+    box-shadow: 0 0 0 1px rgba(250, 85, 122, .24) inset;
+  }
+  100% {
+    background-color: transparent;
+    box-shadow: none;
+  }
+}
+
+/* Micro-interactions: subtle, consistent, lightweight */
+@media (hover: hover) and (pointer: fine) {
+  .layout--articles .item,
+  .layout--articles .card,
+  .navigation .navigation__item > a,
+  .pagination .button {
+    transform: translate3d(0, 0, 0);
+    transition: transform .18s cubic-bezier(.2, .7, .2, 1), opacity .18s ease;
+  }
+
+  // .layout--articles .item:hover,
+  // .layout--articles .card:hover {
+  //   transform: translate3d(0, -2px, 0);
+  // }
+
+  .navigation .navigation__item > a:hover,
+  .pagination .button:not(.disabled):hover {
+    transform: translate3d(0, -1px, 0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal-ready {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+
+  .article__content .is-footnote-target {
+    animation: none !important;
+    background-color: rgba(250, 85, 122, .1) !important;
+  }
 }

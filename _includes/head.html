@@ -19,6 +19,36 @@
 
 {%- include snippets/get-sources.html -%}
 {%- assign _sources = __return -%}
+
+{%- assign _preconnect_urls = _sources.font_awesome
+  | append: ',' | append: _sources.jquery
+  | append: ',' | append: _sources.leancloud_js_sdk
+  | append: ',' | append: _sources.valine
+  | append: ',' | append: _sources.mathjax
+  | append: ',' | append: _sources.mermaid
+  | append: ',' | append: _sources.chart
+  | append: ',' | append: _sources.gitalk.js
+  | append: ',' | append: _sources.gitalk.css
+  | split: ',' -%}
+{%- assign _seen_hosts = '|' -%}
+{%- for _url in _preconnect_urls -%}
+  {%- assign _url = _url | strip -%}
+  {%- if _url contains '//' -%}
+    {%- assign _host = _url
+      | replace: 'https://', ''
+      | replace: 'http://', ''
+      | replace: '//', ''
+      | split: '/'
+      | first -%}
+    {%- assign _token = '|' | append: _host | append: '|' -%}
+    {%- unless _seen_hosts contains _token -%}
+<link rel="dns-prefetch" href="//{{ _host }}">
+<link rel="preconnect" href="https://{{ _host }}" crossorigin>
+      {%- assign _seen_hosts = _seen_hosts | append: _host | append: '|' -%}
+    {%- endunless -%}
+  {%- endif -%}
+{%- endfor -%}
+
 <link rel="stylesheet" href="{{ _sources.font_awesome }}" media="print" onload="this.media='all'">
 <noscript><link rel="stylesheet" href="{{ _sources.font_awesome }}"></noscript>
 
