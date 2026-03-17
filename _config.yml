@@ -84,7 +84,7 @@ toc:
 ## => Markdown Enhancements
 ##############################
 ## Mathjax
-mathjax: true # false (default), true
+mathjax: false # false (default), true (auto-enabled for pages with math)
 mathjax_autoNumber: true # false (default), true
 
 ## Mermaid
@@ -182,6 +182,10 @@ analytics:
 markdown: kramdown
 highlighter : rouge
 permalink   : date
+
+# CSS output
+sass:
+  style: compressed
 
 exclude:
   - CHANGELOG.md

@@ -1,27 +1,42 @@
 var SOURCES = window.TEXT_VARIABLES.sources;
-var PAHTS = window.TEXT_VARIABLES.paths;
-window.Lazyload.js([SOURCES.jquery, PAHTS.search_js], function() {
+var PATHS = window.TEXT_VARIABLES.paths;
+window.Lazyload.js(SOURCES.jquery, function() {
   var search = (window.search || (window.search = {}));
-  var searchData = window.TEXT_SEARCH_DATA || {};
+  var $result = $('.js-search-result'), $resultItems;
+  var lastActiveIndex, activeIndex;
+  var searchData = null;
+  var isReady = false;
+  var isLoading = false;
+  var readyCallbacks = [];
+
+  function runReadyCallbacks() {
+    var i;
+    for (i = 0; i < readyCallbacks.length; i++) {
+      readyCallbacks[i] && readyCallbacks[i]();
+    }
+    readyCallbacks = [];
+  }
 
   function memorize(f) {
     var cache = {};
     return function () {
       var key = Array.prototype.join.call(arguments, ',');
       if (key in cache) return cache[key];
-      else return cache[key] = f.apply(this, arguments);
+      return cache[key] = f.apply(this, arguments);
     };
   }
 
-  /// search
   function searchByQuery(query) {
     var i, j, key, keys, cur, _title, result = {};
+    if (!searchData) {
+      return result;
+    }
     keys = Object.keys(searchData);
     for (i = 0; i < keys.length; i++) {
       key = keys[i];
       for (j = 0; j < searchData[key].length; j++) {
         cur = searchData[key][j], _title = cur.title;
-        if ((result[key] === undefined || result[key] && result[key].length < 4 )
+        if ((result[key] === undefined || result[key] && result[key].length < 4)
           && _title.toLowerCase().indexOf(query.toLowerCase()) >= 0) {
           if (result[key] === undefined) {
             result[key] = [];
@@ -37,9 +52,9 @@ window.Lazyload.js([SOURCES.jquery, PAHTS.search_js], function() {
     return $('<p class="search-result__header">' + header + '</p>');
   });
 
-  var renderItem = function(index, title, url) {
+  function renderItem(index, title, url) {
     return $('<li class="search-result__item" data-index="' + index + '"><a class="button" href="' + url + '">' + title + '</a></li>');
-  };
+  }
 
   function render(data) {
     if (!data) { return null; }
@@ -56,22 +71,18 @@ window.Lazyload.js([SOURCES.jquery, PAHTS.search_js], function() {
     return $root;
   }
 
-  // search box
-  var $result = $('.js-search-result'), $resultItems;
-  var lastActiveIndex, activeIndex;
-
   function clear() {
     $result.html(null);
-    $resultItems = $('.search-result__item'); activeIndex = 0;
-  }
-  function onInputNotEmpty(val) {
-    $result.html(render(searchByQuery(val)));
-    $resultItems = $('.search-result__item'); activeIndex = 0;
-    $resultItems.eq(0).addClass('active');
+    $resultItems = $('.search-result__item');
+    activeIndex = 0;
   }
 
-  search.clear = clear;
-  search.onInputNotEmpty = onInputNotEmpty;
+  function onInputNotEmpty(val) {
+    $result.html(render(searchByQuery(val)));
+    $resultItems = $('.search-result__item');
+    activeIndex = 0;
+    $resultItems.eq(0).addClass('active');
+  }
 
   function updateResultItems() {
     lastActiveIndex >= 0 && $resultItems.eq(lastActiveIndex).removeClass('active');
@@ -85,28 +96,60 @@ window.Lazyload.js([SOURCES.jquery, PAHTS.search_js], function() {
       if (direction === 'up') {
         activeIndex = (activeIndex - 1 + itemsCount) % itemsCount;
       } else if (direction === 'down') {
-        activeIndex = (activeIndex + 1 + itemsCount) % itemsCount;
+        activeIndex = (activeIndex + 1) % itemsCount;
       }
       updateResultItems();
     }
   }
 
-  // Char Code: 13  Enter, 37  ⬅, 38  ⬆, 39  ➡, 40  ⬇
-  $(window).on('keyup', function(e) {
-    var modalVisible = search.getModalVisible && search.getModalVisible();
-    if (modalVisible) {
-      if (e.which === 38) {
-        modalVisible && moveActiveIndex('up');
-      } else if (e.which === 40) {
-        modalVisible && moveActiveIndex('down');
-      } else if (e.which === 13) {
-        modalVisible && $resultItems && activeIndex >= 0 && $resultItems.eq(activeIndex).children('a')[0].click();
-      }
+  function initSearchRuntime() {
+    if (isReady) {
+      return;
     }
-  });
+    searchData = window.TEXT_SEARCH_DATA || {};
+    search.clear = clear;
+    search.onInputNotEmpty = onInputNotEmpty;
 
-  $result.on('mouseover', '.search-result__item > a', function() {
-    var itemIndex = $(this).parent().data('index');
-    itemIndex >= 0 && (lastActiveIndex = activeIndex, activeIndex = itemIndex, updateResultItems());
-  });
+    // Char Code: 13 Enter, 38 Up, 40 Down
+    $(window).on('keyup', function(e) {
+      var modalVisible = search.getModalVisible && search.getModalVisible();
+      if (!modalVisible) {
+        return;
+      }
+      if (e.which === 38) {
+        moveActiveIndex('up');
+      } else if (e.which === 40) {
+        moveActiveIndex('down');
+      } else if (e.which === 13) {
+        $resultItems && activeIndex >= 0 && $resultItems.eq(activeIndex).children('a')[0] && $resultItems.eq(activeIndex).children('a')[0].click();
+      }
+    });
+
+    $result.on('mouseover', '.search-result__item > a', function() {
+      var itemIndex = $(this).parent().data('index');
+      itemIndex >= 0 && (lastActiveIndex = activeIndex, activeIndex = itemIndex, updateResultItems());
+    });
+
+    isReady = true;
+    runReadyCallbacks();
+  }
+
+  function ensureReady(callback) {
+    if (isReady) {
+      callback && callback();
+      return;
+    }
+    callback && readyCallbacks.push(callback);
+    if (isLoading) {
+      return;
+    }
+    isLoading = true;
+    window.Lazyload.js(PATHS.search_js, function() {
+      isLoading = false;
+      initSearchRuntime();
+    });
+  }
+
+  search.clear = clear;
+  search.ensureReady = ensureReady;
 });

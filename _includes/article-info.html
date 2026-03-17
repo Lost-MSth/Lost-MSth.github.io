@@ -35,7 +35,12 @@
 
   {%- assign _paths_archive = site.paths.archive | default: site.data.variables.default.paths.archive -%}
 
-  {%- if _show_tags or _show_author or _show_date or _pageview -%}
+  {%- assign _show_reading_time = false -%}
+  {%- if include.article.reading_time and include.article.url == page.url -%}
+    {%- assign _show_reading_time = true -%}
+  {%- endif -%}
+
+  {%- if _show_tags or _show_author or _show_date or _pageview or _show_reading_time -%}
     <div class="article__info clearfix">
       {%- if _show_tags -%}
 
@@ -54,7 +59,7 @@
         </ul>
       {%- endif -%}
 
-      {%- if _show_author or _show_date or _pageview -%}
+      {%- if _show_author or _show_date or _pageview or _show_reading_time -%}
         <ul class="right-col menu">
           {%- if _show_author  -%}
             <li><i class="fas fa-user"></i> <span>{{ _author.name }}</span></li>
@@ -65,6 +70,12 @@
               {%- include snippets/get-locale-string.html key='ARTICLE_DATE_FORMAT' -%}
               <i class="far fa-calendar-alt"></i> <span>{{ include.article.date | date: __return }}</span>
             </li>
+          {%- endif -%}
+
+          {%- if _show_reading_time -%}
+            {%- include snippets/get-locale-string.html key='READING_TIME' -%}
+            {%- assign _locale_reading_time = __return | default: '[MINUTES] min read' -%}
+            <li><i class="far fa-clock"></i> <span>{{ _locale_reading_time | replace: '[MINUTES]', include.article.reading_time }}</span></li>
           {%- endif -%}
 
           {%- if _pageview -%}

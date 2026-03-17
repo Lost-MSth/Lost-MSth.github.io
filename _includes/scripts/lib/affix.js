@@ -5,11 +5,12 @@
       var $root = this, $window = $(window), $scrollTarget, $scroll,
         offsetBottom = 0, scrollTarget = window, scroll = window.document, disabled = false, isOverallScroller = true,
         rootTop, rootLeft, rootHeight, scrollBottom, rootBottomTop,
-        hasInit = false, curState;
+        hasInit = false, curState, ticking = false,
+        raf = window.requestAnimationFrame || function(cb) { return setTimeout(cb, 16); };
 
       function setOptions(options) {
         var _options = options || {};
-        _options.offsetBottom && (offsetBottom = _options.offsetBottom);
+        _options.offsetBottom !== undefined && (offsetBottom = _options.offsetBottom);
         _options.scrollTarget && (scrollTarget = _options.scrollTarget);
         _options.scroll && (scroll = _options.scroll);
         _options.disabled !== undefined && (disabled = _options.disabled);
@@ -65,30 +66,57 @@
           bottom();
         }
       }
+      function runCalcAndState(needPreCalc) {
+        calc(needPreCalc);
+        setState();
+      }
+
+      var throttledRefresh = window.throttle(function() {
+        if (!disabled) {
+          runCalcAndState(true);
+        }
+      }, 120);
+
+      function requestSetState() {
+        if (disabled || ticking) {
+          return;
+        }
+        ticking = true;
+        raf(function() {
+          setState();
+          ticking = false;
+        });
+      }
+
+      function bindMediaLoadRefresh() {
+        var container = $scroll && $scroll[0];
+        if (!container || !container.querySelectorAll) {
+          return;
+        }
+        var media = container.querySelectorAll('img,iframe,video');
+        for (var i = 0; i < media.length; i++) {
+          var node = media[i];
+          if (node.getAttribute('data-affix-bound') === 'true') {
+            continue;
+          }
+          node.setAttribute('data-affix-bound', 'true');
+          node.addEventListener('load', throttledRefresh);
+        }
+      }
+
       function init() {
-        if(!hasInit) {
-          var interval, timeout;
-          calc(true); setState();
-          // run calc every 100 millisecond
-          interval = setInterval(function() {
-            calc();
-          }, 100);
-          timeout = setTimeout(function() {
-            clearInterval(interval);
-          }, 45000);
+        if (!hasInit) {
+          runCalcAndState(true);
+          bindMediaLoadRefresh();
+          $scrollTarget.on('scroll', requestSetState);
+          $window.on('resize', throttledRefresh);
           window.pageLoad.then(function() {
-            setTimeout(function() {
-              clearInterval(interval);
-              clearTimeout(timeout);
-            }, 3000);
-          });
-          $scrollTarget.on('scroll', function() {
-            disabled || setState();
-          });
-          $window.on('resize', function() {
-            disabled || (calc(true), setState());
+            bindMediaLoadRefresh();
+            throttledRefresh();
           });
           hasInit = true;
+        } else {
+          throttledRefresh();
         }
       }
 
@@ -97,12 +125,22 @@
         init();
       }
       $window.on('resize', window.throttle(function() {
-        init();
+        if (!disabled) {
+          init();
+        }
       }, 200));
       return {
-        setOptions: setOptions,
+        setOptions: function(options) {
+          setOptions(options);
+          if (!disabled) {
+            init();
+            throttledRefresh();
+          }
+        },
         refresh: function() {
-          calc(true, { animation: false }); setState();
+          if (!disabled) {
+            runCalcAndState(true);
+          }
         }
       };
     }

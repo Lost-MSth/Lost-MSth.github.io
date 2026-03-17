@@ -5,7 +5,7 @@
     // search panel
     var search = (window.search || (window.search = {}));
     var useDefaultSearchBox = window.useDefaultSearchBox === undefined ?
-      true : window.useDefaultSearchBox ;
+      true : window.useDefaultSearchBox;
 
     var $searchModal = $('.js-page-search-modal');
     var $searchToggle = $('.js-search-toggle');
@@ -22,16 +22,33 @@
     }
     search.getModalVisible = getModalVisible;
 
+    function ensureSearchReady(callback) {
+      if (search.ensureReady) {
+        search.ensureReady(callback);
+      } else {
+        callback && callback();
+      }
+    }
+
     function handleModalChange(visible) {
       modalVisible = visible;
       if (visible) {
+        ensureSearchReady(function() {
+          if (useDefaultSearchBox && $searchInput && $searchInput[0]) {
+            var currentVal = $searchInput.val();
+            if (currentVal && typeof currentVal === 'string') {
+              $searchBox && $searchBox.addClass('not-empty');
+              search.onInputNotEmpty && search.onInputNotEmpty(currentVal);
+            }
+          }
+        });
         search.onShow && search.onShow();
-        useDefaultSearchBox && $searchInput[0] && $searchInput[0].focus();
+        useDefaultSearchBox && $searchInput && $searchInput[0] && $searchInput[0].focus();
       } else {
-        search.onShow && search.onHide();
-        useDefaultSearchBox && $searchInput[0] && $searchInput[0].blur();
+        search.onHide && search.onHide();
+        useDefaultSearchBox && $searchInput && $searchInput[0] && $searchInput[0].blur();
         setTimeout(function() {
-          useDefaultSearchBox && ($searchInput.val(''), $searchBox.removeClass('not-empty'));
+          useDefaultSearchBox && $searchInput && $searchBox && ($searchInput.val(''), $searchBox.removeClass('not-empty'));
           search.clear && search.clear();
           window.pageAsideAffix && window.pageAsideAffix.refresh();
         }, 400);
@@ -41,10 +58,13 @@
     $searchToggle.on('click', function() {
       modalVisible ? searchModal.hide() : searchModal.show();
     });
-    // Char Code: 83  S, 191 /
+
+    // Char Code: 83 S, 191 /
     $(window).on('keyup', function(e) {
       if (!modalVisible && !window.isFormElement(e.target || e.srcElement) && (e.which === 83 || e.which === 191)) {
-        modalVisible || searchModal.show();
+        searchModal.show();
+      } else if (modalVisible && e.which === 27) {
+        searchModal.hide();
       }
     });
 
@@ -72,13 +92,23 @@
         var val = $(this).val();
         if (val === '' || typeof val !== 'string') {
           search.clear && search.clear();
+          $searchBox.removeClass('not-empty');
         } else {
           $searchBox.addClass('not-empty');
-          search.onInputNotEmpty && search.onInputNotEmpty(val);
+          ensureSearchReady(function() {
+            var latestVal = $searchInput.val();
+            if (latestVal === '' || typeof latestVal !== 'string') {
+              search.clear && search.clear();
+              $searchBox.removeClass('not-empty');
+            } else {
+              search.onInputNotEmpty && search.onInputNotEmpty(latestVal);
+            }
+          });
         }
-      }, 400));
+      }, 250));
       $searchClear.on('click', function() {
-        $searchInput.val(''); $searchBox.removeClass('not-empty');
+        $searchInput.val('');
+        $searchBox.removeClass('not-empty');
         search.clear && search.clear();
       });
     }

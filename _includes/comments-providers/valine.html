@@ -7,40 +7,89 @@
 {%- assign _VALINE_VISITOR = site.comments.valine.visitor -%}
 {%- assign _VALINE_META = site.comments.valine.meta -%}
 
+{%- include snippets/get-locale-string.html key='LOAD_COMMENTS' -%}
+{%- assign _locale_load_comments = __return | default: 'Load comments' -%}
+{%- include snippets/get-locale-string.html key='LOADING' -%}
+{%- assign _locale_loading = __return | default: 'Loading...' -%}
 
-{%- if _VALINE_APP_ID and
-  _VALINE_APP_KEY -%}
+{%- if _VALINE_APP_ID and _VALINE_APP_KEY -%}
 
-<div id="vcomments"></div>
+<div class="comments-lazy" id="comments_lazy_root">
+  <button type="button" class="button button--secondary button--pill comments-lazy__button js-comments-load">{{ _locale_load_comments }}</button>
+  <div id="vcomments" class="comments-lazy__container" aria-live="polite"></div>
+</div>
 
-{%- if _VALINE_VISITOR -%}    
-<span id="{{page.url}}" class="leancloud-visitors" data-flag-title={{page.title}}>
-</span>
+{%- if _VALINE_VISITOR -%}
+<span id="{{ page.url }}" class="leancloud-visitors" data-flag-title={{ page.title }}></span>
 {%- endif -%}
 
 <script>
-  window.Lazyload.js(['{{ _sources.leancloud_js_sdk}}', '{{ _sources.valine }}'], function() {
-    var _config = {
-      el: '#vcomments',
-      appId:  '{{ _VALINE_APP_ID }}',
-      appKey: '{{ _VALINE_APP_KEY }}',
-      verify: true,
-    };
-    {%- if _VALINE_PLACEHOLDER -%}
-      _config.placeholder = '{{ _VALINE_PLACEHOLDER }}';
-    {%- endif -%}
-    {%- assign _page_lang_slice =  page.lang | slice: 0, 2 -%}
-    {%- if _page_lang_slice != 'zh'  -%}
-      _config.lang = 'en';
-    {%- endif -%}  
-    {%- if _VALINE_VISITOR -%}
-      _config.visitor = 'true';
-    {%- endif -%}
-    {%- if _VALINE_META -%}
-      _config.meta = {{ _VALINE_META}};
-    {%- endif -%}
-    new Valine(_config);
-  });
+  (function() {
+    var root = document.getElementById('comments_lazy_root');
+    if (!root) {
+      return;
+    }
+
+    var trigger = root.querySelector('.js-comments-load');
+    var loadingText = '{{ _locale_loading }}';
+    var loaded = false;
+
+    function ensureComments() {
+      if (loaded) {
+        return;
+      }
+      loaded = true;
+      if (trigger) {
+        trigger.disabled = true;
+        trigger.textContent = loadingText;
+        trigger.classList.add('is-loading');
+      }
+
+      window.Lazyload.js(['{{ _sources.leancloud_js_sdk}}', '{{ _sources.valine }}'], function() {
+        var _config = {
+          el: '#vcomments',
+          appId: '{{ _VALINE_APP_ID }}',
+          appKey: '{{ _VALINE_APP_KEY }}',
+          verify: true
+        };
+        {%- if _VALINE_PLACEHOLDER -%}
+          _config.placeholder = '{{ _VALINE_PLACEHOLDER }}';
+        {%- endif -%}
+        {%- assign _page_lang_slice = page.lang | slice: 0, 2 -%}
+        {%- if _page_lang_slice != 'zh' -%}
+          _config.lang = 'en';
+        {%- endif -%}
+        {%- if _VALINE_VISITOR -%}
+          _config.visitor = 'true';
+        {%- endif -%}
+        {%- if _VALINE_META -%}
+          _config.meta = {{ _VALINE_META }};
+        {%- endif -%}
+
+        new Valine(_config);
+        if (trigger && trigger.parentNode) {
+          trigger.parentNode.removeChild(trigger);
+        }
+      });
+    }
+
+    if (trigger) {
+      trigger.addEventListener('click', ensureComments, { once: true });
+    }
+
+    if ('IntersectionObserver' in window) {
+      var observer = new IntersectionObserver(function(entries) {
+        for (var i = 0; i < entries.length; i++) {
+          if (entries[i].isIntersecting) {
+            ensureComments();
+            observer.disconnect();
+            break;
+          }
+        }
+      }, { rootMargin: '220px 0px' });
+      observer.observe(root);
+    }
+  })();
 </script>
 
 {%- endif -%}
