@@ -83,7 +83,7 @@
         }
         ticking = true;
         raf(function() {
-          setState();
+          runCalcAndState(true);
           ticking = false;
         });
       }

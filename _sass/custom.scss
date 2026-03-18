@@ -123,21 +123,6 @@
   }
 }
 
-@media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-  }
-
-  .scroll-nav > .button {
-    transition: none;
-    transform: none !important;
-  }
-}
-
 /* Pagination statistics text only */
 .layout--home {
   .pagination > p {
@@ -561,15 +546,3 @@
   }
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .reveal-ready {
-    opacity: 1 !important;
-    transform: none !important;
-    transition: none !important;
-  }
-
-  .article__content .is-footnote-target {
-    animation: none !important;
-    background-color: rgba(250, 85, 122, .1) !important;
-  }
-}

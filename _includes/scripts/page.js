@@ -76,7 +76,7 @@ window.Lazyload.js(SOURCES.jquery, function () {
         var useMainScroller = !!(pageRoot && pageMain && pageRoot.classList.contains('layout--page--sidebar'));
         var scrollTarget = useMainScroller ? pageMain : window;
 
-        var prefersReducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        var supportsSmoothScroll = 'scrollBehavior' in document.documentElement.style;
         var threshold = 120;
         var ticking = false;
 
@@ -129,7 +129,7 @@ window.Lazyload.js(SOURCES.jquery, function () {
                 var top = getTargetScrollTop(target);
                 var options = {
                     top: top,
-                    behavior: prefersReducedMotion ? 'auto' : 'smooth'
+                    behavior: supportsSmoothScroll ? 'smooth' : 'auto'
                 };
                 useMainScroller ? pageMain.scrollTo(options) : window.scrollTo(options);
                 flashTarget(target);
@@ -158,9 +158,6 @@ window.Lazyload.js(SOURCES.jquery, function () {
         }
 
         function initScrollReveal() {
-            if (prefersReducedMotion) {
-                return;
-            }
             var revealSelector = [
                 '.layout--articles .item',
                 '.layout--articles .cell',
@@ -208,30 +205,50 @@ window.Lazyload.js(SOURCES.jquery, function () {
                 return;
             }
 
-            if (!('IntersectionObserver' in window)) {
-                for (var j = 0; j < targets.length; j++) {
-                    targets[j].classList.add('is-revealed');
+            function revealAll() {
+                for (var x = 0; x < targets.length; x++) {
+                    targets[x].classList.add('is-revealed');
                 }
+            }
+
+            if (!('IntersectionObserver' in window)) {
+                revealAll();
                 return;
             }
 
-            var observer = new IntersectionObserver(function (entries) {
-                for (var k = 0; k < entries.length; k++) {
-                    if (entries[k].isIntersecting) {
-                        var el = entries[k].target;
-                        el.classList.add('is-revealed');
-                        observer.unobserve(el);
+            var observer;
+            try {
+                observer = new IntersectionObserver(function (entries) {
+                    for (var k = 0; k < entries.length; k++) {
+                        if (entries[k].isIntersecting) {
+                            var el = entries[k].target;
+                            el.classList.add('is-revealed');
+                            observer.unobserve(el);
+                        }
                     }
-                }
-            }, {
-                root: useMainScroller ? pageMain : null,
-                rootMargin: '0px 0px -8% 0px',
-                threshold: 0.08
-            });
+                }, {
+                    root: useMainScroller ? pageMain : null,
+                    rootMargin: '0px 0px -64px 0px',
+                    threshold: 0.08
+                });
+            } catch (err) {
+                revealAll();
+                return;
+            }
 
             for (var n = 0; n < targets.length; n++) {
                 observer.observe(targets[n]);
             }
+
+            // Fallback for older Chromium builds that intermittently miss IO callbacks
+            window.setTimeout(function () {
+                for (var m = 0; m < targets.length; m++) {
+                    if (!targets[m].classList.contains('is-revealed')) {
+                        targets[m].classList.add('is-revealed');
+                        observer.unobserve(targets[m]);
+                    }
+                }
+            }, 1500);
 
             window.addEventListener('pagehide', function () {
                 observer.disconnect();
@@ -301,7 +318,7 @@ window.Lazyload.js(SOURCES.jquery, function () {
         function scrollToTop() {
             var options = {
                 top: 0,
-                behavior: prefersReducedMotion ? 'auto' : 'smooth'
+                behavior: supportsSmoothScroll ? 'smooth' : 'auto'
             };
             useMainScroller ? pageMain.scrollTo(options) : window.scrollTo(options);
         }
@@ -310,7 +327,7 @@ window.Lazyload.js(SOURCES.jquery, function () {
             var bottom = useMainScroller ? pageMain.scrollHeight : document.documentElement.scrollHeight;
             var options = {
                 top: bottom,
-                behavior: prefersReducedMotion ? 'auto' : 'smooth'
+                behavior: supportsSmoothScroll ? 'smooth' : 'auto'
             };
             useMainScroller ? pageMain.scrollTo(options) : window.scrollTo(options);
         }
