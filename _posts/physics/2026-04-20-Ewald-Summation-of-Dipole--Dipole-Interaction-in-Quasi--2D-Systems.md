@@ -1,5 +1,5 @@
 ---
-title: "Ewald Summation of Dipole--Dipole Interaction in Quasi-2D Systems"
+title: "Ewald Summation of Dipole-Dipole Interaction in Quasi-2D Systems"
 key: ewald_summation_of_dipole_dipole_interaction_in_quasi_2d_systems
 tags: ["physics"]
 modify_date: "2026-04-21 18:00:00"
@@ -9,13 +9,13 @@ aside:
 
 > 标题：准二维系统中偶极-偶极相互作用的 Ewald 求和。
 >
-> 参考资料主要是学长的三维系统版本的[知乎专栏](https://zhuanlan.zhihu.com/p/1892667327243339682)（[English Version](https://zhuanlan.zhihu.com/p/643745411)）。Grzybowski 等人的论文 [^1] 基本上是被我拿来对比结果了，当然他们是准二维系统的情况，而且不仅仅是讨论 dipole--dipole 相互作用，主要是考虑的库伦相互作用。
+> 参考资料主要是学长的三维系统版本的[知乎专栏](https://zhuanlan.zhihu.com/p/1892667327243339682)（[English Version](https://zhuanlan.zhihu.com/p/643745411)）。Grzybowski 等人的论文 [^1] 基本上是被我拿来对比结果了，当然他们是准二维系统的情况，而且不仅仅是讨论 dipole-dipole 相互作用，主要是考虑的库伦相互作用。
 
 [^1]: Grzybowski, A., E. Gwóźdź, and A. Bródka. 2000. “Ewald Summation of Electrostatic Interactions in Molecular Dynamics of a Three-Dimensional System with Periodicity in Two Directions.” Physical Review B 61(10): 6706–12. doi:10.1103/PhysRevB.61.6706.
 
 <!--more-->
 
-## Dipole--Dipole Interaction
+## Dipole-Dipole Interaction
 
 > 本文大部分内容是英文的，因为 LLM 帮忙了……啊不是，其实是因为这是从 note 里抄出来的，那边的核心内容是 Luttinger--Tisza (LT) 方法。但是非母语内容读得就是难受，所以有些地方我会用中文来解释一下，注意，中文内容的意思不是纯粹的翻译，可能英文原文里并没有那个意思。
 >
@@ -38,7 +38,7 @@ $$
     \qquad r=\abs{\vb*{r}}.
 \end{equation}
 $$
-Then the dipole--dipole interaction can be compactly written as
+Then the dipole-dipole interaction can be compactly written as
 $$
 \begin{equation}
     H_{\text{dd}}
@@ -62,7 +62,7 @@ We have used the translation symmetry to rewrite the sum over $$\vb*{R}'$$ as a 
 
 > 求和带撇号是排除掉自己和自己之间的相互作用。
 
-By performing the Fourier transform, we can naturally define the dipole--dipole interaction matrix:
+By performing the Fourier transform, we can naturally define the dipole-dipole interaction matrix:
 $$
 \begin{equation}
 \begin{aligned}
